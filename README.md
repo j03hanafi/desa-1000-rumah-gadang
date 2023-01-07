@@ -1,4 +1,4 @@
-# Desa Wisata Kampuang Minang Nagari Sumpu
+# Desa Wisata Saribu Rumah Gadang Nagari Koto Baru
 This is a Geographic Information System (GIS) Web Application. Created using Codeigniter 4 with Myth/Auth for user authentications.
 
 ## What is CodeIgniter?
@@ -29,7 +29,7 @@ the following primary features:
 
 ## Installation & updates
 
-Using terminal, **run `git clone https://github.com/j03hanafi/desa-wisata-sumpu.git`, go inside the directory with `cd desa-wisata-sumpu`, then `composer install`** to set up Codeigniter 4 framework.
+Using terminal, **run `git clone https://github.com/j03hanafi/desa-1000-rumah-gadang.git`, go inside the directory with `cd desa-1000-rumah-gadang`, then `composer install`** to set up Codeigniter 4 framework.
 
 When updating, check the release notes to see if there are any changes you might need to apply
 to your `app` folder. The affected files can be copied or merged from
