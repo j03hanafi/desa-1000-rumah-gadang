@@ -1,4 +1,0 @@
-- [x] weekly event
-- [x] monthly event
-- [x] yearly event
-- [x] sort list event by date 

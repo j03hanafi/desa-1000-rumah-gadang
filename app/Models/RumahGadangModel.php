@@ -11,7 +11,7 @@ class RumahGadangModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'rumah_gadang';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_rumah_gadang';
     protected $returnType       = 'array';
     protected $allowedFields    = ['id', 'name', 'address', 'open', 'close', 'ticket_price', 'geom', 'contact_person', 'status', 'recom', 'owner', 'description', 'video_url'];
 

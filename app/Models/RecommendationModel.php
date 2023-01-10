@@ -7,10 +7,10 @@ use CodeIgniter\Model;
 class RecommendationModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'recommendation';
-    protected $primaryKey       = 'id';
+    protected $table            = 'recommendation_place';
+    protected $primaryKey       = 'id_recommendation';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'name'];
+    protected $allowedFields    = ['id_recommendation', 'name'];
 
     // Dates
     protected $useTimestamps = true;
