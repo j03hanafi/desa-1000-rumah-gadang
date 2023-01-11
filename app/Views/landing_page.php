@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Desa Wisata Kampuang Minang Nagari Sumpu</title>
+        <title>Desa Wisata Saribu Rumah Gadang</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="keywords" />
         <meta content="" name="description" />
@@ -107,7 +107,7 @@
                         Welcome to
                     </h2>
                     <h1 class="display-4 text-light mb-5">
-                        Desa Wisata Kampuang Minang Nagari Sumpu
+                        Desa Wisata Saribu Rumah Gadang
                     </h1>
                     <div class="d-flex align-items-center pt-4 animated slideInDown">
                         <a href="/web" class="btn btn-primary py-sm-3 px-3 px-sm-5 me-5"
@@ -187,10 +187,10 @@
                     <p><span class="text-primary me-2">#</span>Welcome To Desa Wisata </p>
                     <h1 class="display-5 mb-4">
                         Why You Should Visit
-                        Desa Wisata <span class="text-primary">Kampuang Minang Nagari Sumpu</span>
+                        Desa Wisata <span class="text-primary">Saribu Rumah Gadang</span>
                     </h1>
                     <p class="mb-4">
-                        Kampuang Minang Nagari Sumpu  terletak di Nagari Sumpur, Kecamatan Batipuh Selatan Kabupaten Tanah Datar Sumatra Barat tepatnya di sebelah utara Danau Singkarak yang di aliri oleh aliran Batang Sumpu. Untuk menuju ke Kampuang Minang Nagari Sumpu diperkirakan menempuh perjalanan dari Bandara Internasional Minangkabau lebih kurang 2 jam perjalanan. Di kampuang Minang Nagari Sumpu terdapat wisata yang berbasis budaya dengan adanya lebih kurang 70 buah rumah gadang dan beberapa situs sejarah. Dari sekian banyaknya rumah gadang, terdapat 3 buah rumah gadang yang sudah dijadikan  Homestay bagi wisatawan yang berkunjung ke Kampuang Minang Nagari Sumpu.
+                        Saribu Rumah Gadang merupakan desa wisata atau kampung adat masyarakat minang kabau. Dimana rumah gadang itu sendiri merupakan pusaka tinggi dan rumah adat kebanggaan masyarakat di Minang Kabau. Adat dan budaya asli minang menjadi wajah dan jati diri dari nagari saribu rumah gadang.
                     </p>
                     <h5 class="mb-3">
                         <a href="#map" class="text-reset" onclick="showMap('rg');">
@@ -200,6 +200,11 @@
                     <h5 class="mb-3">
                         <a href="#map" class="text-reset" onclick="showMap('ev');">
                             <i class="far fa-check-circle text-primary me-3"></i>Event
+                        </a>
+                    </h5>
+                    <h5 class="mb-3">
+                        <a href="#map" class="text-reset" onclick="showMap('cp');">
+                            <i class="far fa-check-circle text-primary me-3"></i>Unique Place
                         </a>
                     </h5>
                     <h5 class="mb-3">
@@ -252,15 +257,15 @@
                         data-wow-delay="0.1s"
                 >
                     <img src="media/photos/landing-page/trophy.png" alt="" style="filter: invert(100%); max-width: 4em" class="mb-3">
-                    <h1 class="text-white mb-2" data-toggle="counter-up">50</h1>
-                    <p class="text-white mb-0">Besar ADWI 2021</p>
+                    <h1 class="text-white mb-2" data-toggle="counter-up">300</h1>
+                    <p class="text-white mb-0">Besar ADWI 2022</p>
                 </div>
                 <div
                         class="col-md-6 col-lg-6 text-center wow fadeIn"
                         data-wow-delay="0.3s"
                 >
                     <img src="media/photos/landing-page/rumah-gadang.png" alt="" style="filter: invert(100%); max-width: 5em">
-                    <h1 class="text-white mb-2" data-toggle="counter-up">70</h1>
+                    <h1 class="text-white mb-2" data-toggle="counter-up">1000</h1>
                     <p class="text-white mb-0">Rumah Gadang</p>
                 </div>
             </div>
@@ -315,20 +320,17 @@
                 <div class="col-lg-9 col-md-6">
                     <h5 class="text-light mb-4">Address</h5>
                     <p class="mb-2">
-                        <i class="fa fa-map-marker-alt me-3"></i>Nagari Sumpu, Batipuh Selatan, Kabupaten Tanah Datar, Sumatera Barat
+                        <i class="fa fa-map-marker-alt me-3"></i>Saribu Rumah Gadang, Sungai Pagu, Kabupaten Solok Selatan, Sumatera Barat
                     </p>
                     <p class="mb-2">
-                        <i class="fa fa-phone-alt me-3"></i>+62 813 7451 9594
+                        <i class="fa fa-phone-alt me-3"></i>081268367550
                     </p>
                     <p class="mb-2">
-                        <i class="fa fa-envelope me-3"></i>pesonasumpu@gmail.com
+                        <i class="fa fa-envelope me-3"></i>ozirahmana@yahoo.co.uk
                     </p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/pesonasumpu"
+                        <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/pokdarwis1000rumahgadang"
                         ><i class="fab fa-instagram"></i
-                            ></a>
-                        <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/Kampuang%20Minang%20Nagari%20Sumpu"
-                        ><i class="fab fa-facebook-f"></i
                             ></a>
                     </div>
                 </div>
@@ -347,7 +349,7 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Rahmat Hanafi</a>, All
+                        &copy; <a class="border-bottom" href="#">Ranggi</a>, All
                         Right Reserved.
                     </div>
                 </div>
