@@ -1,9 +1,5 @@
 <?= $this->extend('web/layouts/main'); ?>
 
-<?= $this->section('styles'); ?>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-<?= $this->endSection() ?>
-
 <?= $this->section('content') ?>
 
 <section class="section">
@@ -14,7 +10,7 @@
         <div class="col-md-6 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title text-center">Event Information</h4>
+                    <h4 class="card-title text-center">Unique Place Information</h4>
                     <div class="text-center">
                         <?php for ($i = 0; $i < (int)esc($data['avg_rating']); $i++) { ?>
                             <span class="material-symbols-outlined rating-color">star</span>
@@ -29,26 +25,18 @@
                         <div class="col table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                                <tr>
-                                    <td class="fw-bold">Name</td>
-                                    <td><?= esc($data['name']); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Category</td>
-                                    <td><?= esc($data['category']); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Event Date</td>
-                                    <td><?= date('d F Y', strtotime(esc($data['date_start']))); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Ticket Price</td>
-                                    <td><?= 'Rp ' . number_format(esc($data['ticket_price']), 0, ',','.'); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Contact Person</td>
-                                    <td><?= esc($data['contact_person']); ?></td>
-                                </tr>
+                                    <tr>
+                                        <td class="fw-bold">Name</td>
+                                        <td><?= esc($data['name']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Address</td>
+                                        <td><?= esc($data['address']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Contact Person</td>
+                                        <td><?= esc($data['contact_person']); ?></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -77,7 +65,7 @@
                 <script>initMap(<?= esc($data['lat']); ?>, <?= esc($data['lng']); ?>)</script>
                 <script>objectMarker("<?= esc($data['id']); ?>", <?= esc($data['lat']); ?>, <?= esc($data['lng']); ?>);</script>
             </div>
-
+            
             <!-- Object Media -->
             <?= $this->include('web/layouts/gallery_video'); ?>
         </div>
@@ -87,12 +75,10 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('javascript') ?>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
     const myModal = document.getElementById('videoModal');
     const videoSrc = document.getElementById('video-play').getAttribute('data-src');
-
+    
     myModal.addEventListener('shown.bs.modal', () => {
         console.log(videoSrc);
         document.getElementById('video').setAttribute('src', videoSrc);
@@ -100,18 +86,6 @@
     myModal.addEventListener('hide.bs.modal', () => {
         document.getElementById('video').setAttribute('src', '');
     });
-    
-    $(document).ready( function () {
-        $('#table-manage').DataTable({
-            columnDefs: [
-                {
-                    targets: ['_all'],
-                    className: 'dt-head-center'
-                }
-            ],
-            lengthMenu: [ 5, 10, 20, 50, 100 ],
-            order: []
-        });
-    } );
 </script>
 <?= $this->endSection() ?>
+

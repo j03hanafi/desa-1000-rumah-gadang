@@ -27,7 +27,7 @@ class CategoryEventModel extends Model
     // API
     public function get_list_cat_api() {
         $query = $this->db->table($this->table)
-            ->select('id_event_category, category')
+            ->select('id_event_category as id, category')
             ->get();
         return $query;
     }

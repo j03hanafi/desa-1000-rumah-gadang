@@ -60,6 +60,7 @@ $routes->group('web', ['namespace' => 'App\Controllers\Web'], function($routes) 
     $routes->get('event/maps', 'Event::maps');
     $routes->get('event/detail/(:segment)', 'Event::detail/$1');
     $routes->presenter('event');
+    $routes->presenter('uniquePlace');
     $routes->get('visitHistory', 'VisitHistory::visitHistory', ['filter' => 'role:user']);
     $routes->get('visitHistory/add', 'VisitHistory::addVisitHistory', ['filter' => 'role:user']);
     $routes->post('visitHistory', 'VisitHistory::visitHistory', ['filter' => 'role:user']);
@@ -113,6 +114,11 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) 
     $routes->post('event/findByRating', 'Event::findByRating');
     $routes->post('event/findByCategory', 'Event::findByCategory');
     $routes->post('event/findByDate', 'Event::findByDate');
+    $routes->resource('uniquePlace');
+    $routes->post('uniquePlaceOwner', 'UniquePlace::listByOwner');
+    $routes->post('uniquePlace/findByName', 'UniquePlace::findByName');
+    $routes->post('uniquePlace/findByRadius', 'UniquePlace::findByRadius');
+    $routes->post('uniquePlace/findByRating', 'UniquePlace::findByRating');
     $routes->resource('culinaryPlace');
     $routes->post('culinaryPlaceOwner', 'CulinaryPlace::listByOwner');
     $routes->post('culinaryPlace/findByRadius', 'CulinaryPlace::findByRadius');

@@ -43,10 +43,10 @@
                                     <?php $i = 1; ?>
                                     <?php foreach ($data as $item) : ?>
                                     <?php $now = new DateTimeImmutable('now'); ?>
-                                    <tr class="<?= (esc($item['date_next']) < $now->format('Y-m-d')) ? 'table-secondary text-muted' : ''; ?>">
+                                    <tr class="<?= (esc($item['date_end']) < $now->format('Y-m-d')) ? 'table-secondary text-muted' : ''; ?>">
                                         <script>objectMarker("<?= esc($item['id']); ?>", <?= esc($item['lat']); ?>, <?= esc($item['lng']); ?>);</script>
                                         <td><?= esc($i); ?></td>
-                                        <td class="fw-bold"><?= esc($item['name']); ?><br><span class="text-muted"><?= date('d F Y', strtotime(esc($item['date_next']))); ?></span></td>
+                                        <td class="fw-bold"><?= esc($item['name']); ?><br><span class="text-muted"><?= date('d F Y', strtotime(esc($item['date_start']))); ?></span></td>
                                         <td>
                                             <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="More Info" class="btn icon btn-primary mx-1" onclick="focusObject(`<?= esc($item['id']); ?>`);">
                                                 <span class="material-symbols-outlined">info</span>

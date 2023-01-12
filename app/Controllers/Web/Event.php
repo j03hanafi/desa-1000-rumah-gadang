@@ -35,33 +35,11 @@ class Event extends ResourcePresenter
      */
     public function index()
     {
-        $contents = $this->eventModel->get_list_ev_api()->getResult();
-        foreach ($contents as $content) {
-            $calendar = $this->getCalendar($content);
-            $content->date_next = $calendar[0];
-            $content->calendar = $calendar;
-        }
-    
-        usort($contents, function ($a, $b) {
-            return $a->date_next <=> $b->date_next;
-        });
-    
-        $now = new DateTimeImmutable('now');
-        $events = array();
-        foreach ($contents as $content) {
-            if ($content->date_next >= $now->format('Y-m-d')) {
-                $events[] = (array)$content;
-            }
-        }
-        foreach($contents as $content){
-            if ($content->date_next < $now->format('Y-m-d')) {
-                $events[] = (array)$content;
-            }
-        }
+        $contents = $this->eventModel->get_list_ev_api()->getResultArray();
         
         $data = [
             'title' => 'Event',
-            'data' => $events,
+            'data' => $contents,
         ];
         return view('web/list_event', $data);
     }
@@ -79,9 +57,7 @@ class Event extends ResourcePresenter
         if (empty($event)) {
             return redirect()->to(substr(current_url(), 0, -strlen($id)));
         }
-        $calendar = $this->getCalendar($event);
-    
-        $avg_rating = $this->reviewModel->get_rating('event_id', $id)->getRowArray()['avg_rating'];
+        $avg_rating = $this->reviewModel->get_rating('id_event', $id)->getRowArray()['avg_rating'];
     
         $list_gallery = $this->galleryEventModel->get_gallery_api($id)->getResultArray();
         $galleries = array();
@@ -89,10 +65,8 @@ class Event extends ResourcePresenter
             $galleries[] = $gallery['url'];
         }
     
-        $list_review = $this->reviewModel->get_review_object_api('event_id', $id)->getResultArray();
-    
-        $event['date_next'] = $calendar[0];
-        $event['calendar'] = $calendar;
+        $list_review = $this->reviewModel->get_review_object_api('id_event', $id)->getResultArray();
+
         $event['avg_rating'] = $avg_rating;
         $event['gallery'] = $galleries;
         $event['reviews'] = $list_review;

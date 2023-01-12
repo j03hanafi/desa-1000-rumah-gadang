@@ -1,31 +1,40 @@
 - [x]	Visitor dapat menampilkan current position pada peta secara manual maupun otomatis
-- [ ]	Visitor bisa melihat daftar Rumah Gadang yang direkomendasikan
-- [ ]	Visitor dapat melihat semua Rumah Gadang dengan lokasi masing-masing Rumah Gadang pada peta
-- [ ]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan jarak radius dari current position menuju Rumah Gadang
-- [ ]	Visitor dapat melihat lokasi dan informasi ringkas dari Rumah Gadang yang dipilih pada peta
-- [ ]	Visitor dapat melihat rute yang dapat ditempuh dari current position yang sudah diatur menuju Rumah Gadang yang dipilih
-- [ ]	Visitor dapat melihat detail informasi dari Rumah Gadang yang dipilih beserta rating dan review Rumah Gadang
-- [ ]	Visitor bisa menampilkan galeri dari Rumah Gadang yang dipilih
-- [ ]	Visitor bisa menampilkan video dari Rumah Gadang yang dipilih
-- [ ]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan nama Rumah Gadang
-- [ ]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan fasilitas yang ada di Rumah Gadang
-- [ ]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan rating Rumah Gadang
-- [ ]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan tipe Rumah Gadang (homestay/tidak bisa homestay) 
-- [ ]	Visitor dapat melihat daftar semua event dengan lokasi masing-masing event pada peta
-- [ ]	Visitor bisa melakukan pencarian event berdasarkan jarak radius dari current position menuju event
-- [ ]	Visitor dapat melihat lokasi dan informasi ringkas dari event yang dipilih pada peta
-- [ ]	Visitor dapat melihat rute yang dapat ditempuh dari current position yang sudah diatur menuju event yang dipilih
-- [ ]	Visitor dapat melihat detail informasi dari event yang dipilih beserta rating dan review event
-- [ ]	Visitor bisa menampilkan galeri dari event yang dipilih
-- [ ]	Visitor bisa menampilkan video dari event yang dipilih
-- [ ]	Visitor bisa melakukan pencarian event berdasarkan nama event
-- [ ]	Visitor bisa melakukan pencarian event berdasarkan rating event
-- [ ]	Visitor bisa melakukan pencarian event berdasarkan tipe event 
-- [ ]	Visitor bisa melakukan pencarian event berdasarkan tanggal event berlangsung
-- [ ]	Visitor bisa melakukan pencarian objek pendukung di sekitar Rumah Gadang/event yang dipilih
-- [ ]	Visitor dapat melihat rute yang dapat ditempuh dari posisi Rumah Gadang/event yang dipilih menuju objek pendukung yang dipilih
+- [x]	Visitor bisa melihat daftar Rumah Gadang yang direkomendasikan
+- [x]	Visitor dapat melihat semua Rumah Gadang dengan lokasi masing-masing Rumah Gadang pada peta
+- [x]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan jarak radius dari current position menuju Rumah Gadang
+- [x]	Visitor dapat melihat lokasi dan informasi ringkas dari Rumah Gadang yang dipilih pada peta
+- [x]	Visitor dapat melihat rute yang dapat ditempuh dari current position yang sudah diatur menuju Rumah Gadang yang dipilih
+- [x]	Visitor dapat melihat detail informasi dari Rumah Gadang yang dipilih beserta rating dan review Rumah Gadang
+- [x]	Visitor bisa menampilkan galeri dari Rumah Gadang yang dipilih
+- [x]	Visitor bisa menampilkan video dari Rumah Gadang yang dipilih
+- [x]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan nama Rumah Gadang
+- [x]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan fasilitas yang ada di Rumah Gadang
+- [x]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan rating Rumah Gadang
+- [x]	Visitor bisa melakukan pencarian Rumah Gadang berdasarkan tipe Rumah Gadang (homestay/tidak bisa homestay) 
+- [x]	Visitor dapat melihat daftar semua event dengan lokasi masing-masing event pada peta
+- [x]	Visitor bisa melakukan pencarian event berdasarkan jarak radius dari current position menuju event
+- [x]	Visitor dapat melihat lokasi dan informasi ringkas dari event yang dipilih pada peta
+- [x]	Visitor dapat melihat rute yang dapat ditempuh dari current position yang sudah diatur menuju event yang dipilih
+- [x]	Visitor dapat melihat detail informasi dari event yang dipilih beserta rating dan review event
+- [x]	Visitor bisa menampilkan galeri dari event yang dipilih
+- [x]	Visitor bisa menampilkan video dari event yang dipilih
+- [x]	Visitor bisa melakukan pencarian event berdasarkan nama event
+- [x]	Visitor bisa melakukan pencarian event berdasarkan rating event
+- [x]	Visitor bisa melakukan pencarian event berdasarkan tipe event 
+- [x]	Visitor bisa melakukan pencarian event berdasarkan tanggal event berlangsung
+- [x]	Visitor dapat melihat daftar semua unique place dengan lokasi masing-masing unique place pada peta
+- [x]	Visitor bisa melakukan pencarian unique place berdasarkan jarak radius dari current position menuju unique place
+- [x]	Visitor dapat melihat lokasi dan informasi ringkas dari unique place yang dipilih pada peta
+- [x]	Visitor dapat melihat rute yang dapat ditempuh dari current position yang sudah diatur menuju unique place yang dipilih
+- [x]	Visitor dapat melihat detail informasi dari unique place yang dipilih beserta rating dan review unique place
+- [x]	Visitor bisa menampilkan galeri dari unique place yang dipilih
+- [x]	Visitor bisa menampilkan video dari unique place yang dipilih
+- [x]	Visitor bisa melakukan pencarian unique place berdasarkan nama unique place
+- [x]	Visitor bisa melakukan pencarian unique place berdasarkan rating unique place
+- [x]	Visitor bisa melakukan pencarian objek pendukung di sekitar objek utama yang dipilih
+- [x]	Visitor dapat melihat rute yang dapat ditempuh dari posisi objek utama yang dipilih menuju objek pendukung yang dipilih
 - [ ]	Visitor dapat melihat detail informasi dari objek pendukung yang dipilih
-- [ ]	Visitor dapat melihat lokasi dari objek pendukung yang dipilih pada peta 
+- [x]	Visitor dapat melihat lokasi dari objek pendukung yang dipilih pada peta 
 - [ ]	Visitor dapat melakukan registrasi
 - [ ]	User dapat melakukan login
 - [ ]	User dapat mengganti password akunnya

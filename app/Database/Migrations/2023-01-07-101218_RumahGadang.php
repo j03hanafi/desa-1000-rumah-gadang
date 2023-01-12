@@ -57,7 +57,7 @@ class RumahGadang extends Migration
             ],
             'status' => [
                 'type' => 'VARCHAR',
-                'constraint' => 5,
+                'constraint' => 20,
                 'null' => true,
             ],
             'description' => [

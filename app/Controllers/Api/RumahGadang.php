@@ -75,8 +75,8 @@ class RumahGadang extends ResourceController
             $facilities[] = $facility['facility'];
         }
 
-        $list_review = $this->reviewModel->get_review_object_api('rumah_gadang_id', $id)->getResultArray();
-        $avg_rating = $this->reviewModel->get_rating('rumah_gadang_id', $id)->getRowArray()['avg_rating'];
+        $list_review = $this->reviewModel->get_review_object_api('id_rumah_gadang', $id)->getResultArray();
+        $avg_rating = $this->reviewModel->get_rating('id_rumah_gadang', $id)->getRowArray()['avg_rating'];
 
         $rumahGadang['facilities'] = $facilities;
         $rumahGadang['gallery'] = $galleries;
@@ -369,7 +369,7 @@ class RumahGadang extends ResourceController
         $list_facility = $this->detailFacilityRumahGadangModel->get_facility_by_fc_api($facility)->getResultArray();
         $rumah_gadang_id = array();
         foreach ($list_facility as $facil) {
-            $rumah_gadang_id[] = $facil['rumah_gadang_id'];
+            $rumah_gadang_id[] = $facil['id_rumah_gadang'];
         }
         $contents = $this->rumahGadangModel->get_rg_in_id_api($rumah_gadang_id)->getResult();
         $response = [
@@ -386,10 +386,10 @@ class RumahGadang extends ResourceController
     {
         $request = $this->request->getPost();
         $rating = $request['rating'];
-        $list_rating = $this->reviewModel->get_object_by_rating_api('rumah_gadang_id', $rating)->getResultArray();
+        $list_rating = $this->reviewModel->get_object_by_rating_api('id_rumah_gadang', $rating)->getResultArray();
         $rumah_gadang_id = array();
         foreach ($list_rating as $rat) {
-            $rumah_gadang_id[] = $rat['rumah_gadang_id'];
+            $rumah_gadang_id[] = $rat['id_rumah_gadang'];
         }
         if (count($rumah_gadang_id) > 0) {
             $contents = $this->rumahGadangModel->get_rg_in_id_api($rumah_gadang_id)->getResult();

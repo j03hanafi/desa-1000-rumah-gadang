@@ -344,6 +344,44 @@ function objectInfoWindow(id){
                 }
             }
         });
+    } else if (id.substring(0,1) === "U") {
+        $.ajax({
+            url: baseUrl + '/api/uniquePlace/' + id,
+            dataType: 'json',
+            success: function (response) {
+                let data = response.data;
+                let upid = data.id;
+                let name = data.name;
+                let lat = data.lat;
+                let lng = data.lng;
+
+                content =
+                    '<div class="text-center">' +
+                    '<p class="fw-bold fs-6">'+ name +'</p> <br>' +
+                    '</div>';
+                contentButton =
+                    '<br><div class="text-center">' +
+                    '<a title="Route" class="btn icon btn-outline-primary mx-1" id="routeInfoWindow" onclick="routeTo('+lat+', '+lng+')"><i class="fa-solid fa-road"></i></a>' +
+                    '<a title="Info" class="btn icon btn-outline-primary mx-1" target="_blank" id="infoInfoWindow" href='+baseUrl+'/web/uniquePlace/'+upid+'><i class="fa-solid fa-info"></i></a>' +
+                    '<a title="Nearby" class="btn icon btn-outline-primary mx-1" id="nearbyInfoWindow" onclick="openNearby(`'+ upid +'`,'+ lat +','+ lng +')"><i class="fa-solid fa-compass"></i></a>' +
+                    '</div>'
+                contentMobile =
+                    '<br><div class="text-center">' +
+                    '<a title="Route" class="btn icon btn-outline-primary mx-1" id="routeInfoWindow" onclick="routeTo('+lat+', '+lng+')"><i class="fa-solid fa-road"></i></a>' +
+                    '</div>'
+
+                if (currentUrl.includes(id)) {
+                    if (currentUrl.includes('mobile')){
+                        infoWindow.setContent(content + contentMobile);
+                    } else {
+                        infoWindow.setContent(content);
+                    }
+                    infoWindow.open(map, markerArray[upid])
+                } else {
+                    infoWindow.setContent(content + contentButton);
+                }
+            }
+        });
     } else if (id.substring(0,1) === "E") {
         const months = [
             'January',
@@ -370,7 +408,7 @@ function objectInfoWindow(id){
                 let lng = data.lng;
                 let ticket_price = (data.ticket_price == 0) ? 'Free' : 'Rp ' + data.ticket_price;
                 let category = data.category;
-                let date_next = new Date(data.date_next);
+                let date_next = new Date(data.date_start);
                 let next = date_next.getDate() + ' ' + months[date_next.getMonth()] + ' ' + date_next.getFullYear();
 
                 content =
@@ -610,7 +648,7 @@ function displayFoundObject(response) {
         let item = data[i];
         let row;
         if (item.hasOwnProperty('date_next')){
-            let date_next = new Date(item.date_next);
+            let date_next = new Date(item.date_start);
             let next = date_next.getDate() + ' ' + months[date_next.getMonth()] + ' ' + date_next.getFullYear();
             row =
                 '<tr>'+
@@ -665,12 +703,14 @@ function closeNearby() {
     $('#list-rec-col').show();
     $('#list-rg-col').show();
     $('#list-ev-col').show();
+    $('#list-up-col').show();
 }
 
 // open nearby search section
 function openNearby(id, lat, lng) {
     $('#list-rg-col').hide();
     $('#list-ev-col').hide();
+    $('#list-up-col').hide();
     $('#list-rec-col').hide();
     $('#check-nearby-col').show();
 
@@ -829,8 +869,6 @@ function infoModal(id) {
                     '<p><span class="fw-bold">Address</span>: '+ item.address +'</p>'+
                     '<p><span class="fw-bold">Open</span>: '+ open +' - '+ close+' WIB</p>'+
                     '<p><span class="fw-bold">Contact Person:</span> '+ item.contact_person+'</p>'+
-                    '<p><span class="fw-bold">Capacity</span>: '+ item.capacity+'</p>'+
-                    '<p><span class="fw-bold">Employee</span>: '+ item.employee+'</p>'+
                     '</div>'+
                     '<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">' +
                     '<ol class="carousel-indicators">' +
@@ -868,10 +906,9 @@ function infoModal(id) {
                 content =
                     '<div class="text-start">'+
                     '<p><span class="fw-bold">Address</span>: '+ item.address +'</p>'+
-                    '<p><span class="fw-bold">Park Area :</span> '+ item.park_area_size+' m<sup>2</sup></p>'+
-                    '<p><span class="fw-bold">Building Area</span>: '+ item.building_size+' m<sup>2</sup></p>'+
+                    '<p><span class="fw-bold">Park Area :</span> '+ item.parking_area+' m<sup>2</sup></p>'+
+                    '<p><span class="fw-bold">Building Area</span>: '+ item.building_area+' m<sup>2</sup></p>'+
                     '<p><span class="fw-bold">Capacity</span>: '+ item.capacity+'</p>'+
-                    '<p><span class="fw-bold">Last Renovation</span>: '+ item.last_renovation+'</p>'+
                     '</div>' +
                     '<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">' +
                     '<ol class="carousel-indicators">' +
@@ -912,7 +949,6 @@ function infoModal(id) {
                     '<div class="text-start">'+
                     '<p><span class="fw-bold">Address</span>: '+ item.address +'</p>'+
                     '<p><span class="fw-bold">Contact Person :</span> '+ item.contact_person+'</p>'+
-                    '<p><span class="fw-bold">Employee</span>: '+ item.employee+'</p>'+
                     '<p><span class="fw-bold">Open</span>: '+ open +' - '+ close+' WIB</p>'+
                     '</div>' +
                     '<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">' +
@@ -1248,6 +1284,10 @@ function getLegend() {
         ev :{
             name: 'Event',
             icon: baseUrl + '/media/icon/marker_ev.png',
+        },
+        up :{
+            name: 'Unique Place',
+            icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png',
         },
         cp :{
             name: 'Culinary Place',

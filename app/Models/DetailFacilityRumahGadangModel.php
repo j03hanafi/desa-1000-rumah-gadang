@@ -30,7 +30,7 @@ class DetailFacilityRumahGadangModel extends Model
         $query = $this->db->table($this->table)
             ->select('facility_rumah_gadang.facility')
             ->where('id_rumah_gadang', $rumah_gadang_id)
-            ->join('facility_rumah_gadang', 'detail_facility_rumah_gadang.id_facility_rumah_gadang = facility_rumah_gadang.id')
+            ->join('facility_rumah_gadang', 'detail_facility_rumah_gadang.id_facility_rumah_gadang = facility_rumah_gadang.id_facility_rumah_gadang')
             ->get();
         return $query;
     }

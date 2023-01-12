@@ -59,7 +59,7 @@ class RumahGadang extends ResourcePresenter
             return redirect()->to(substr(current_url(), 0, -strlen($id)));
         }
     
-        $avg_rating = $this->reviewModel->get_rating('rumah_gadang_id', $id)->getRowArray()['avg_rating'];
+        $avg_rating = $this->reviewModel->get_rating('id_rumah_gadang', $id)->getRowArray()['avg_rating'];
     
         $list_facility = $this->detailFacilityRumahGadangModel->get_facility_by_rg_api($id)->getResultArray();
         $facilities = array();
@@ -67,7 +67,7 @@ class RumahGadang extends ResourcePresenter
             $facilities[] = $facility['facility'];
         }
     
-        $list_review = $this->reviewModel->get_review_object_api('rumah_gadang_id', $id)->getResultArray();
+        $list_review = $this->reviewModel->get_review_object_api('id_rumah_gadang', $id)->getResultArray();
     
         $list_gallery = $this->galleryRumahGadangModel->get_gallery_api($id)->getResultArray();
         $galleries = array();

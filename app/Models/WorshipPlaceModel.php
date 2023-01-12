@@ -28,7 +28,7 @@ class WorshipPlaceModel extends Model
     // API
     public function get_list_wp_api() {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id_worship_place,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
+        $columns = "{$this->table}.id_worship_place as id,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
         $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, worship_place.lat, worship_place.lng")
@@ -49,7 +49,7 @@ class WorshipPlaceModel extends Model
 
     public function get_wp_by_id_api($id = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id_worship_place,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
+        $columns = "{$this->table}.id_worship_place as id,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
         $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, worship_place.lat, worship_place.lng")
@@ -66,7 +66,7 @@ class WorshipPlaceModel extends Model
         $long = $data['long'];
         $jarak = "(6371 * acos(cos(radians({$lat})) * cos(radians({$this->table}.lat)) * cos(radians({$this->table}.lng) - radians({$long})) + sin(radians({$lat}))* sin(radians({$this->table}.lat))))";
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id_worship_place,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
+        $columns = "{$this->table}.id_worship_place as id,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
         $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, worship_place.lat, worship_place.lng, {$jarak} as jarak")

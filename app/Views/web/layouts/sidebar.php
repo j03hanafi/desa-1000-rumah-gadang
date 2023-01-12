@@ -222,7 +222,7 @@ $uri3 = $uri[3] ?? '';
                     <!-- Unique Place -->
                     <li class="sidebar-item <?= ($uri1 == 'uniquePlace') ? 'active' : '' ?> has-sub">
                         <a href="" class="sidebar-link">
-                            <i class="fa-solid fa-campground"></i><span>Unique Place</span>
+                            <i class="fa-solid fa-location-dot"></i><span>Unique Place</span>
                         </a>
 
                         <ul class="submenu <?= ($uri1 == 'uniquePlace') ? 'active' : '' ?>">
@@ -278,7 +278,7 @@ $uri3 = $uri[3] ?? '';
                         </ul>
                     </li>
 
-                    // Logged in Sidebar
+<!--                    Logged in Sidebar-->
                     <?php if (in_groups(['admin'])): ?>
                     <li class="sidebar-item">
                         <a href="<?= base_url('dashboard/rumahGadang'); ?>" class="sidebar-link">

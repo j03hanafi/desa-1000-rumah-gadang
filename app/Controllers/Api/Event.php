@@ -39,42 +39,9 @@ class Event extends ResourceController
     public function index()
     {
         $contents = $this->eventModel->get_list_ev_api()->getResult();
-        foreach ($contents as $content) {
-            $calendar = $this->getCalendar($content);
-            $content->date_next = $calendar[0];
-            $content->calendar = $calendar;
-        }
-        
-        usort($contents, function ($a, $b) {
-            return $a->date_next <=> $b->date_next;
-        });
-    
-        $now = new DateTimeImmutable('now');
-        $events = array();
-        foreach ($contents as $content){
-            $list_gallery = $this->galleryEventModel->get_gallery_api($content->id)->getResultArray();
-            $galleries = array();
-            foreach ($list_gallery as $gallery) {
-                $galleries[] = $gallery['url'];
-            }
-            $content->gallery = $galleries[0];
-            $events[] = $content;
-        }
-        
-        $sortedEvents = array();
-        foreach ($events as $event) {
-            if ($event->date_next >= $now->format('Y-m-d')) {
-                $sortedEvents[] = $event;
-            }
-        }
-        foreach($events as $event){
-            if ($event->date_next < $now->format('Y-m-d')) {
-                $sortedEvents[] = $event;
-            }
-        }
-        
+
         $response = [
-            'data' => $sortedEvents,
+            'data' => $contents,
             'status' => 200,
             'message' => [
                 "Success get list of Event"
@@ -101,7 +68,6 @@ class Event extends ResourceController
             ];
             return $this->respond($response);
         }
-        $calendar = $this->getCalendar($event);
 
         $list_gallery = $this->galleryEventModel->get_gallery_api($id)->getResultArray();
         $galleries = array();
@@ -109,10 +75,8 @@ class Event extends ResourceController
             $galleries[] = $gallery['url'];
         }
 
-        $list_review = $this->reviewModel->get_review_object_api('event_id', $id)->getResultArray();
+        $list_review = $this->reviewModel->get_review_object_api('id_event', $id)->getResultArray();
 
-        $event['date_next'] = $calendar[0];
-        $event['calendar'] = $calendar;
         $event['gallery'] = $galleries;
         $event['reviews'] = $list_review;
 
@@ -304,10 +268,10 @@ class Event extends ResourceController
     {
         $request = $this->request->getPost();
         $rating = $request['rating'];
-        $list_rating = $this->reviewModel->get_object_by_rating_api('event_id', $rating)->getResultArray();
+        $list_rating = $this->reviewModel->get_object_by_rating_api('id_event', $rating)->getResultArray();
         $event_id = array();
         foreach ($list_rating as $rat) {
-            $event_id[] = $rat['event_id'];
+            $event_id[] = $rat['id_event'];
         }
         if (count($event_id) > 0) {
             $contents = $this->eventModel->get_ev_in_id_api($event_id)->getResult();
@@ -345,36 +309,9 @@ class Event extends ResourceController
         $request = $this->request->getPost();
         $date = $request['date']; // YYYY-MM-DD
         $contents = $this->eventModel->get_ev_by_date_api($date)->getResult();
-        foreach ($contents as $content) {
-            $calendar = $this->getCalendar($content);
-            $content->date_next = $calendar[0];
-            $content->calendar = $calendar;
-        }
-        $eventsInDate = array();
-        foreach ($contents as $content) {
-            if (in_array($date, $content->calendar)){
-                $eventsInDate[] = $content;
-            }
-        }
-    
-        usort($eventsInDate, function ($a, $b) {
-            return $a->date_next <=> $b->date_next;
-        });
-    
-        $now = new DateTimeImmutable('now');
-        $events = array();
-        foreach ($eventsInDate as $content) {
-            if ($content->date_next >= $now->format('Y-m-d')) {
-                $events[] = $content;
-            }
-        }
-        foreach($eventsInDate as $content){
-            if ($content->date_next < $now->format('Y-m-d')) {
-                $events[] = $content;
-            }
-        }
+
         $response = [
-            'data' => $events,
+            'data' => $contents,
             'status' => 200,
             'message' => [
                 "Success find event by date"

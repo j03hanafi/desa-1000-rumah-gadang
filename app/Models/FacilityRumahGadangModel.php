@@ -28,7 +28,7 @@ class FacilityRumahGadangModel extends Model
     // API
     public function get_list_fc_api() {
         $query = $this->db->table($this->table)
-            ->select('id_facility_rumah_gadang, facility')
+            ->select('id_facility_rumah_gadang as id, facility')
             ->get();
         return $query;
     }
