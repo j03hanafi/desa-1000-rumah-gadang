@@ -8,10 +8,10 @@ use CodeIgniter\Model;
 class SouvenirPlaceModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'souvenir_place';
-    protected $primaryKey       = 'id';
+    protected $table            = 'souvenir';
+    protected $primaryKey       = 'id_souvenir';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'name', 'address', 'contact_person', 'employee', 'geom', 'open', 'close', 'description'];
+    protected $allowedFields    = ['id_souvenir', 'name', 'address', 'cp', 'geom', 'open', 'close', 'description', 'lat', 'lng'];
 
     // Dates
     protected $useTimestamps = true;
@@ -28,11 +28,11 @@ class SouvenirPlaceModel extends Model
     // API
     public function get_list_sp_api() {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.address,{$this->table}.contact_person,{$this->table}.employee,{$this->table}.open,{$this->table}.close,{$this->table}.description";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_souvenir,{$this->table}.name,{$this->table}.address,{$this->table}.cp,{$this->table}.open,{$this->table}.close,{$this->table}.description";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
-            ->select("{$columns}, souvenir_place.lat, souvenir_place.lng")
-            ->from('village')
+            ->select("{$columns}, souvenir.lat, souvenir.lng")
+            ->from('regional')
             ->where($vilGeom)
             ->get();
         return $query;
@@ -40,22 +40,22 @@ class SouvenirPlaceModel extends Model
 
     public function list_by_owner_api($id = null) {
         $query = $this->db->table($this->table)
-            ->select('souvenir_place.*, CONCAT(account.first_name, " ", account.last_name) as owner_name')
+            ->select('souvenir.*, CONCAT(account.first_name, " ", account.last_name) as owner_name')
             ->where('owner', $id)
-            ->join('account', 'souvenir_place.owner = account.id')
+            ->join('account', 'souvenir.owner = account.id')
             ->get();
         return $query;
     }
 
     public function get_sp_by_id_api($id = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.address,{$this->table}.contact_person,{$this->table}.employee,{$this->table}.open,{$this->table}.close,{$this->table}.description";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_souvenir,{$this->table}.name,{$this->table}.address,{$this->table}.cp,{$this->table}.open,{$this->table}.close,{$this->table}.description";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
-            ->select("{$columns}, souvenir_place.lat, souvenir_place.lng")
-            ->from('village')
+            ->select("{$columns}, souvenir.lat, souvenir.lng")
+            ->from('regional')
             ->where($vilGeom)
-            ->where('souvenir_place.id', $id)
+            ->where('souvenir.id_souvenir', $id)
             ->get();
         return $query;
     }
@@ -66,11 +66,11 @@ class SouvenirPlaceModel extends Model
         $long = $data['long'];
         $jarak = "(6371 * acos(cos(radians({$lat})) * cos(radians({$this->table}.lat)) * cos(radians({$this->table}.lng) - radians({$long})) + sin(radians({$lat}))* sin(radians({$this->table}.lat))))";
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.address,{$this->table}.contact_person,{$this->table}.employee,{$this->table}.open,{$this->table}.close,{$this->table}.description";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_souvenir,{$this->table}.name,{$this->table}.address,{$this->table}.cp,{$this->table}.open,{$this->table}.close,{$this->table}.description";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
-            ->select("{$columns}, souvenir_place.lat, souvenir_place.lng, {$jarak} as jarak")
-            ->from('village')
+            ->select("{$columns}, souvenir.lat, souvenir.lng, {$jarak} as jarak")
+            ->from('regional')
             ->where($vilGeom)
             ->having(['jarak <=' => $radius])
             ->get();
@@ -79,16 +79,16 @@ class SouvenirPlaceModel extends Model
 
     public function get_sp_in_id_api($id = null) {
         $query = $this->db->table($this->table)
-            ->select('souvenir_place.*, CONCAT(account.first_name, " ", account.last_name) as owner_name')
-            ->whereIn('souvenir_place.id', $id)
-            ->join('account', 'souvenir_place.owner = account.id')
+            ->select('souvenir.*, CONCAT(account.first_name, " ", account.last_name) as owner_name')
+            ->whereIn('souvenir.id_souvenir', $id)
+            ->join('account', 'souvenir.owner = account.id')
             ->get();
         return $query;
     }
 
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 1);
+        $lastId = $this->db->table($this->table)->select('id_souvenir')->orderBy('id_souvenir', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_souvenir'], 1);
         $id = sprintf('S%01d', $count + 1);
         return $id;
     }
@@ -114,7 +114,7 @@ class SouvenirPlaceModel extends Model
         }
         $souvenir_place['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
-            ->where('id', $id)
+            ->where('id_souvenir', $id)
             ->update($souvenir_place);
         return $query;
     }

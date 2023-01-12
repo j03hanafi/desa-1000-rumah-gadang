@@ -9,9 +9,9 @@ class WorshipPlaceModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'worship_place';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_worship_place';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'name', 'address', 'park_area_size', 'building_size', 'capacity', 'last_renovation', 'geom', 'description'];
+    protected $allowedFields    = ['id_worship_place', 'name', 'address', 'parking_area', 'building_area', 'capacity', 'geom', 'description', 'lat', 'lng', 'cp', 'open', 'close'];
 
     // Dates
     protected $useTimestamps = true;
@@ -28,11 +28,11 @@ class WorshipPlaceModel extends Model
     // API
     public function get_list_wp_api() {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.address,{$this->table}.park_area_size,{$this->table}.building_size,{$this->table}.capacity,{$this->table}.last_renovation,{$this->table}.description";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_worship_place,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, worship_place.lat, worship_place.lng")
-            ->from('village')
+            ->from('regional')
             ->where($vilGeom)
             ->get();
         return $query;
@@ -49,12 +49,12 @@ class WorshipPlaceModel extends Model
 
     public function get_wp_by_id_api($id = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.address,{$this->table}.park_area_size,{$this->table}.building_size,{$this->table}.capacity,{$this->table}.last_renovation,{$this->table}.description";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_worship_place,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, worship_place.lat, worship_place.lng")
-            ->from('village')
-            ->where('worship_place.id', $id)
+            ->from('regional')
+            ->where('worship_place.id_worship_place', $id)
             ->where($vilGeom)
             ->get();
         return $query;
@@ -66,11 +66,11 @@ class WorshipPlaceModel extends Model
         $long = $data['long'];
         $jarak = "(6371 * acos(cos(radians({$lat})) * cos(radians({$this->table}.lat)) * cos(radians({$this->table}.lng) - radians({$long})) + sin(radians({$lat}))* sin(radians({$this->table}.lat))))";
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.address,{$this->table}.park_area_size,{$this->table}.building_size,{$this->table}.capacity,{$this->table}.last_renovation,{$this->table}.description";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_worship_place,{$this->table}.name,{$this->table}.address,{$this->table}.parking_area,{$this->table}.building_area,{$this->table}.capacity,{$this->table}.description";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, worship_place.lat, worship_place.lng, {$jarak} as jarak")
-            ->from('village')
+            ->from('regional')
             ->where($vilGeom)
             ->having(['jarak <=' => $radius])
             ->get();
@@ -78,8 +78,8 @@ class WorshipPlaceModel extends Model
     }
 
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 1);
+        $lastId = $this->db->table($this->table)->select('id_worship_place')->orderBy('id_worship_place', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_worship_place'], 1);
         $id = sprintf('W%01d', $count + 1);
         return $id;
     }
@@ -105,7 +105,7 @@ class WorshipPlaceModel extends Model
         }
         $worship_place['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
-            ->where('id', $id)
+            ->where('id_worship_place', $id)
             ->update($worship_place);
         return $query;
     }

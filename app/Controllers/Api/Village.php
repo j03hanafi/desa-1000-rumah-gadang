@@ -26,7 +26,7 @@ class Village extends BaseController
                 'type' => 'Feature',
                 'geometry' => $geoJson,
                 'properties' => [
-                    'id' => $vilProperty['id'],
+                    'id' => $vilProperty['id_regional'],
                     'name' => $vilProperty['name'],
                 ]
             ];
@@ -34,7 +34,7 @@ class Village extends BaseController
                 'data' => $content,
                 'status' => 200,
                 'message' => [
-                    "Success display data of Sumpur "
+                    "Success display data of Nagari "
                 ]
             ];
             return $this->respond($response);
@@ -45,7 +45,7 @@ class Village extends BaseController
                 'type' => 'Feature',
                 'geometry' => $geoJson,
                 'properties' => [
-                    'id' => $vilProperty['id'],
+                    'id' => $vilProperty['id_regional'],
                     'name' => $vilProperty['name'],
                 ]
             ];

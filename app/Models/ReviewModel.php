@@ -8,10 +8,10 @@ use CodeIgniter\Model;
 class ReviewModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'review';
+    protected $table            = 'comment';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'status', 'rumah_gadang_id', 'event_id', 'comment', 'date', 'rating', 'users_id'];
+    protected $allowedFields    = ['id', 'status', 'id_rumah_gadang', 'id_event', 'id_unique_place', 'comment', 'date', 'rating', 'id_user'];
 
     // Dates
     protected $useTimestamps = true;
@@ -41,10 +41,12 @@ class ReviewModel extends Model
         }
         $status = 0;
         foreach ($review as $key => $value) {
-            if ($key == 'rumah_gadang_id') {
+            if ($key == 'id_rumah_gadang') {
                 $status = 1;
-            } elseif ($key == 'event_id') {
+            } elseif ($key == 'id_event') {
                 $status = 2;
+            } elseif ($key == 'id_unique_place') {
+                $status = 3;
             }
         }
         $review['status'] = $status;
@@ -57,9 +59,9 @@ class ReviewModel extends Model
 
     public function get_review_object_api($object = null, $id = null) {
         $query = $this->db->table($this->table)
-            ->select('review.*, users.first_name, users.last_name')
+            ->select('comment.*, users.first_name, users.last_name')
             ->where($object, $id)
-            ->join('users', 'review.user_id = users.id')
+            ->join('users', 'comment.id_user = users.id')
             ->orderBy('date', 'DESC')
             ->get();
         return $query;

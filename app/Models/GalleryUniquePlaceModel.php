@@ -5,13 +5,13 @@ namespace App\Models;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Model;
 
-class GalleryRumahGadangModel extends Model
+class GalleryUniquePlaceModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'rumah_gadang_gallery';
-    protected $primaryKey       = 'id_rumah_gadang_gallery';
+    protected $table            = 'unique_place_gallery';
+    protected $primaryKey       = 'id_unique_place_gallery';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id_rumah_gadang_gallery', 'id_rumah_gadang', 'url'];
+    protected $allowedFields    = ['id_unique_place_gallery', 'id_unique_place', 'url'];
 
     // Dates
     protected $useTimestamps = true;
@@ -27,17 +27,17 @@ class GalleryRumahGadangModel extends Model
 
     // API
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id_rumah_gadang_gallery')->orderBy('id_rumah_gadang_gallery', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id_rumah_gadang_gallery'], 0);
+        $lastId = $this->db->table($this->table)->select('id_unique_place_gallery')->orderBy('id_unique_place_gallery', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_unique_place_gallery'], 0);
         $id = sprintf('%03d', $count + 1);
         return $id;
     }
 
-    public function get_gallery_api($rumah_gadang_id = null) {
+    public function get_gallery_api($unique_place_id = null) {
         $query = $this->db->table($this->table)
             ->select('url')
-            ->orderBy('id_rumah_gadang_gallery', 'ASC')
-            ->where('id_rumah_gadang', $rumah_gadang_id)
+            ->orderBy('id_unique_place_gallery', 'ASC')
+            ->where('id_unique_place', $unique_place_id)
             ->get();
         return $query;
     }
@@ -47,8 +47,8 @@ class GalleryRumahGadangModel extends Model
         foreach ($data as $gallery) {
             $new_id = $this->get_new_id_api();
             $content = [
-                'id_rumah_gadang_gallery' => $new_id,
-                'id_rumah_gadang' => $id,
+                'id_unique_place_gallery' => $new_id,
+                'id_unique_place' => $id,
                 'url' => $gallery,
                 'created_at' => Time::now(),
                 'updated_at' => Time::now(),
@@ -60,7 +60,7 @@ class GalleryRumahGadangModel extends Model
 
     public function update_gallery_api($id = null, $data = null) {
         $queryDel = $this->delete_gallery_api($id);
-    
+
         foreach ($data as $key => $value) {
             if(empty($value)) {
                 unset($data[$key]);
@@ -69,8 +69,8 @@ class GalleryRumahGadangModel extends Model
         $queryIns = $this->add_gallery_api($id, $data);
         return $queryDel && $queryIns;
     }
-    
+
     public function delete_gallery_api($id = null) {
-        return $this->db->table($this->table)->delete(['id_rumah_gadang' => $id]);
+        return $this->db->table($this->table)->delete(['id_unique_place' => $id]);
     }
 }

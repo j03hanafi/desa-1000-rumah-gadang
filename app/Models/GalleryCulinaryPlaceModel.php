@@ -8,10 +8,10 @@ use CodeIgniter\Model;
 class GalleryCulinaryPlaceModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'gallery_culinary_place';
-    protected $primaryKey       = 'id';
+    protected $table            = 'culinary_place_gallery';
+    protected $primaryKey       = 'id_culinary_place_gallery';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'culinary_place_id', 'url'];
+    protected $allowedFields    = ['id_culinary_place_gallery', 'id_culinary_place', 'url'];
 
     // Dates
     protected $useTimestamps = true;
@@ -27,8 +27,8 @@ class GalleryCulinaryPlaceModel extends Model
 
     // API
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 0);
+        $lastId = $this->db->table($this->table)->select('id_culinary_place_gallery')->orderBy('id_culinary_place_gallery', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_culinary_place_gallery'], 0);
         $id = sprintf('%03d', $count + 1);
         return $id;
     }
@@ -36,7 +36,7 @@ class GalleryCulinaryPlaceModel extends Model
     public function get_gallery_api($culinary_place_id = null) {
         $query = $this->db->table($this->table)
             ->select('url')
-            ->where('culinary_place_id', $culinary_place_id)
+            ->where('id_culinary_place', $culinary_place_id)
             ->get();
         return $query;
     }
@@ -46,8 +46,8 @@ class GalleryCulinaryPlaceModel extends Model
         foreach ($data as $gallery) {
             $new_id = $this->get_new_id_api();
             $content = [
-                'id' => $new_id,
-                'culinary_place_id' => $id,
+                'id_culinary_place_gallery' => $new_id,
+                'id_culinary_place' => $id,
                 'url' => $gallery,
                 'created_at' => Time::now(),
                 'updated_at' => Time::now(),
@@ -58,7 +58,7 @@ class GalleryCulinaryPlaceModel extends Model
     }
 
     public function update_gallery_api($id = null, $data = null) {
-        $queryDel = $this->db->table($this->table)->delete(['culinary_place_id' => $id]);
+        $queryDel = $this->db->table($this->table)->delete(['id_culinary_place' => $id]);
         $queryIns = $this->add_gallery_api($id, $data);
         return $queryDel && $queryIns;
     }

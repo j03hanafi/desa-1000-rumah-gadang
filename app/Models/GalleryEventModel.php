@@ -8,10 +8,9 @@ use CodeIgniter\Model;
 class GalleryEventModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'gallery_event';
-    protected $insertID         = 0;
+    protected $table            = 'event_gallery';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'event_id', 'url'];
+    protected $allowedFields    = ['id_event_gallery', 'id_event', 'url'];
 
     // Dates
     protected $useTimestamps = true;
@@ -27,8 +26,8 @@ class GalleryEventModel extends Model
 
     // API
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 0);
+        $lastId = $this->db->table($this->table)->select('id_event_gallery')->orderBy('id_event_gallery', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_event_gallery'], 0);
         $id = sprintf('%03d', $count + 1);
         return $id;
     }
@@ -36,8 +35,8 @@ class GalleryEventModel extends Model
     public function get_gallery_api($event_id = null) {
         $query = $this->db->table($this->table)
             ->select('url')
-            ->orderBy('id', 'ASC')
-            ->where('event_id', $event_id)
+            ->orderBy('id_event_gallery', 'ASC')
+            ->where('id_event', $event_id)
             ->get();
         return $query;
     }
@@ -47,8 +46,8 @@ class GalleryEventModel extends Model
         foreach ($data as $gallery) {
             $new_id = $this->get_new_id_api();
             $content = [
-                'id' => $new_id,
-                'event_id' => $id,
+                'id_event_gallery' => $new_id,
+                'id_event' => $id,
                 'url' => $gallery,
                 'created_at' => Time::now(),
                 'updated_at' => Time::now(),
@@ -71,6 +70,6 @@ class GalleryEventModel extends Model
     }
     
     public function delete_gallery_api($id = null) {
-        return $this->db->table($this->table)->delete(['event_id' => $id]);
+        return $this->db->table($this->table)->delete(['id_event' => $id]);
     }
 }

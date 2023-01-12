@@ -8,10 +8,10 @@ use CodeIgniter\Model;
 class GallerySouvenirPlaceModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'gallery_souvenir_place';
-    protected $primaryKey       = 'id';
+    protected $table            = 'souvenir_gallery';
+    protected $primaryKey       = 'id_souvenir_gallery';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'souvenir_place_id', 'url'];
+    protected $allowedFields    = ['id_souvenir_gallery', 'id_souvenir', 'url'];
 
     // Dates
     protected $useTimestamps = true;
@@ -27,8 +27,8 @@ class GallerySouvenirPlaceModel extends Model
 
     // API
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 0);
+        $lastId = $this->db->table($this->table)->select('id_souvenir_gallery')->orderBy('id_souvenir_gallery', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_souvenir_gallery'], 0);
         $id = sprintf('%03d', $count + 1);
         return $id;
     }
@@ -36,7 +36,7 @@ class GallerySouvenirPlaceModel extends Model
     public function get_gallery_api($souvenir_place_id = null) {
         $query = $this->db->table($this->table)
             ->select('url')
-            ->where('souvenir_place_id', $souvenir_place_id)
+            ->where('id_souvenir', $souvenir_place_id)
             ->get();
         return $query;
     }
@@ -46,8 +46,8 @@ class GallerySouvenirPlaceModel extends Model
         foreach ($data as $gallery) {
             $new_id = $this->get_new_id_api();
             $content = [
-                'id' => $new_id,
-                'souvenir_place_id' => $id,
+                'id_souvenir_gallery' => $new_id,
+                'id_souvenir' => $id,
                 'url' => $gallery,
                 'created_at' => Time::now(),
                 'updated_at' => Time::now(),
@@ -58,7 +58,7 @@ class GallerySouvenirPlaceModel extends Model
     }
 
     public function update_gallery_api($id = null, $data = null) {
-        $queryDel = $this->db->table($this->table)->delete(['souvenir_place_id' => $id]);
+        $queryDel = $this->db->table($this->table)->delete(['id_souvenir' => $id]);
         $queryIns = $this->add_gallery_api($id, $data);
         return $queryDel && $queryIns;
     }

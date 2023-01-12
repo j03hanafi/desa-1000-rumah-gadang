@@ -562,6 +562,21 @@ function radiusSearch({postfix= null, } = {}) {
                 drawRadius(pos, radiusValue);
             }
         });
+    } else if (postfix === 'UP') {
+        $.ajax({
+            url: baseUrl + '/api/uniquePlace/findByRadius',
+            type: 'POST',
+            data: {
+                lat: currentLat,
+                long: currentLng,
+                radius: radiusValue
+            },
+            dataType: 'json',
+            success: function (response) {
+                displayFoundObject(response);
+                drawRadius(pos, radiusValue);
+            }
+        });
     }
 
 }
@@ -967,6 +982,20 @@ function findByName(category) {
                 boundToObject();
             }
         });
+    } else if (category === 'UP') {
+        name = document.getElementById('nameUP').value;
+        $.ajax({
+            url: baseUrl + '/api/uniquePlace/findByName',
+            type: 'POST',
+            data: {
+                name: name,
+            },
+            dataType: 'json',
+            success: function (response) {
+                displayFoundObject(response);
+                boundToObject();
+            }
+        });
     }
 }
 
@@ -1081,6 +1110,19 @@ function findByRating(category) {
                 boundToObject();
             }
         });
+    } else if (category === 'UP') {
+        $.ajax({
+            url: baseUrl + '/api/uniquePlace/findByRating',
+            type: 'POST',
+            data: {
+                rating: rating,
+            },
+            dataType: 'json',
+            success: function (response) {
+                displayFoundObject(response);
+                boundToObject();
+            }
+        });
     }
 }
 
@@ -1112,6 +1154,20 @@ function findByCategory(object) {
         let category = document.getElementById('categoryEVSelect').value;
         $.ajax({
             url: baseUrl + '/api/event/findByCategory',
+            type: 'POST',
+            data: {
+                category: category,
+            },
+            dataType: 'json',
+            success: function (response) {
+                displayFoundObject(response);
+                boundToObject();
+            }
+        });
+    } else if (object === 'UP') {
+        let category = document.getElementById('categoryUPSelect').value;
+        $.ajax({
+            url: baseUrl + '/api/uniquePlace/findByCategory',
             type: 'POST',
             data: {
                 category: category,

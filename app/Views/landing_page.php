@@ -349,7 +349,7 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Ranggi</a>, All
+                        &copy; <a class="border-bottom" href="#">Ranggi Aureliyanto</a>, All
                         Right Reserved.
                     </div>
                 </div>
@@ -395,6 +395,8 @@
                 URI = URI + '/rumahGadang'
             } else if (category == 'ev') {
                 URI = URI + '/event'
+            }else if (category == 'up') {
+                URI = URI + '/uniquePlace'
             } else if (category == 'cp') {
                 URI = URI + '/culinaryPlace'
             } else if (category == 'wp') {

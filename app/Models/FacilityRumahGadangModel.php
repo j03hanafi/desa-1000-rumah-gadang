@@ -9,9 +9,9 @@ class FacilityRumahGadangModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'facility_rumah_gadang';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_facility_rumah_gadang';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'facility'];
+    protected $allowedFields    = ['id_facility_rumah_gadang', 'facility'];
 
     // Dates
     protected $useTimestamps = true;
@@ -28,22 +28,22 @@ class FacilityRumahGadangModel extends Model
     // API
     public function get_list_fc_api() {
         $query = $this->db->table($this->table)
-            ->select('id, facility')
+            ->select('id_facility_rumah_gadang, facility')
             ->get();
         return $query;
     }
     
     public function get_fc_by_id_api($id = null) {
         $query = $this->db->table($this->table)
-            ->select('id, facility')
-            ->where('id', $id)
+            ->select('id_facility_rumah_gadang, facility')
+            ->where('id_facility_rumah_gadang', $id)
             ->get();
         return $query;
     }
     
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 0);
+        $lastId = $this->db->table($this->table)->select('id_facility_rumah_gadang')->orderBy('id_facility_rumah_gadang', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_facility_rumah_gadang'], 0);
         $id = sprintf('%02d', $count + 1);
         return $id;
     }
@@ -69,7 +69,7 @@ class FacilityRumahGadangModel extends Model
         }
         $facility['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
-            ->where('id', $id)
+            ->where('id_facility_rumah_gadang', $id)
             ->update($facility);
         return $query;
     }

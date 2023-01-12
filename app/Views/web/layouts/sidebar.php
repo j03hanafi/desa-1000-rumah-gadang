@@ -218,20 +218,70 @@ $uri3 = $uri[3] ?? '';
                             </li>
                         </ul>
                     </li>
-                    <?php if (in_groups('user')): ?>
-                    <li class="sidebar-item <?= ($uri1 == 'visitHistory') ? 'active' : '' ?>">
-                        <a href="<?= base_url('web/visitHistory'); ?>" class="sidebar-link">
-                            <i class="fa-solid fa-clock-rotate-left"></i><span>Visit History</span>
+
+                    <!-- Unique Place -->
+                    <li class="sidebar-item <?= ($uri1 == 'uniquePlace') ? 'active' : '' ?> has-sub">
+                        <a href="" class="sidebar-link">
+                            <i class="fa-solid fa-campground"></i><span>Unique Place</span>
                         </a>
+
+                        <ul class="submenu <?= ($uri1 == 'uniquePlace') ? 'active' : '' ?>">
+                            <!-- List Unique Place -->
+                            <li class="submenu-item" id="up-list">
+                                <a href="<?= base_url('/web/uniquePlace'); ?>"><i class="fa-solid fa-list me-3"></i>List</a>
+                            </li>
+                            <!-- Unique Place Around You -->
+                            <li class="submenu-item" id="up-around-you">
+                                <a data-bs-toggle="collapse" href="#searchRadiusUP" role="button" aria-expanded="false" aria-controls="searchRadiusUP"><i class="fa-solid fa-compass me-3"></i>Around You</a>
+                                <div class="collapse mb-3" id="searchRadiusUP">
+                                    <label for="inputRadiusUP" class="form-label">Radius: </label>
+                                    <label id="radiusValueUP" class="form-label">0 m</label>
+                                    <input type="range" class="form-range" min="0" max="20" value="0" id="inputRadiusUP" name="inputRadius" onchange="updateRadius('UP'); radiusSearch({postfix: 'UP'});">
+                                </div>
+                            </li>
+                            <li class="submenu-item has-sub" id="up-search">
+                                <a data-bs-toggle="collapse" href="#subsubmenu-up" role="button" aria-expanded="false" aria-controls="subsubmenu-up" class="collapse"><i class="fa-solid fa-magnifying-glass me-3"></i>Search</a>
+                                <ul class="subsubmenu collapse" id="subsubmenu-up">
+                                    <!-- Unique Place by Name -->
+                                    <li class="submenu-item submenu-marker" id="up-by-name">
+                                        <a data-bs-toggle="collapse" href="#searchNameUP" role="button" aria-expanded="false" aria-controls="searchNameUP"><i class="fa-solid fa-arrow-down-a-z me-3"></i>By Name</a>
+                                        <div class="collapse mb-3" id="searchNameUP">
+                                            <div class="d-grid gap-2">
+                                                <input type="text" name="nameUP" id="nameUP" class="form-control" placeholder="Name" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                <button class="btn btn-outline-primary" type="submit" id="button-addon2" onclick="findByName('UP')">
+                                                    <span class="material-icons" style="font-size: 1.5rem; vertical-align: bottom">search</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Unique Place by Rating -->
+                                    <li class="submenu-item submenu-marker" id="up-by-rating">
+                                        <a data-bs-toggle="collapse" href="#searchRatingUP" role="button" aria-expanded="false" aria-controls="searchRatingUP"><i class="fa-regular fa-star me-3"></i>By Rating</a>
+                                        <div class="collapse mb-3" id="searchRatingUP">
+                                            <div class="d-grid gap-2">
+                                                <div class="star-containter">
+                                                    <i class="fa-solid fa-star" id="star-1" onclick="setStar('star-1');"></i>
+                                                    <i class="fa-solid fa-star" id="star-2" onclick="setStar('star-2');"></i>
+                                                    <i class="fa-solid fa-star" id="star-3" onclick="setStar('star-3');"></i>
+                                                    <i class="fa-solid fa-star" id="star-4" onclick="setStar('star-4');"></i>
+                                                    <i class="fa-solid fa-star" id="star-5" onclick="setStar('star-5');"></i>
+                                                    <input type="hidden" id="star-rating" value="0">
+                                                </div>
+                                                <button class="btn btn-outline-primary" type="submit" id="button-addon2" onclick="findByRating('UP')">
+                                                    <span class="material-icons" style="font-size: 1.5rem; vertical-align: bottom">search</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
-                    <?php endif; ?>
-                    <?php if (in_groups(['owner', 'admin'])): ?>
+
+                    // Logged in Sidebar
+                    <?php if (in_groups(['admin'])): ?>
                     <li class="sidebar-item">
-                        <?php if (in_groups(['owner'])): ?>
                         <a href="<?= base_url('dashboard/rumahGadang'); ?>" class="sidebar-link">
-                        <?php elseif (in_groups(['admin'])): ?>
-                        <a href="<?= base_url('dashboard/users'); ?>" class="sidebar-link">
-                        <?php endif; ?>
                             <i class="bi bi-grid-fill"></i><span>Dashboard</span>
                         </a>
                     </li>
@@ -239,10 +289,10 @@ $uri3 = $uri[3] ?? '';
 
                     <li class="sidebar-item">
                         <div class="d-flex justify-content-around">
-                            <a href="https://www.instagram.com/pesonasumpu" class="sidebar-link" target="_blank">
+                            <a href="https://www.instagram.com/pokdarwis1000rumahgadang" class="sidebar-link" target="_blank">
                                 <i class="fa-brands fa-instagram"></i><span>Instagram</span>
                             </a>
-                            <a href="https://www.tiktok.com/@pesonasumpu2" class="sidebar-link" target="_blank">
+                            <a href="https://www.tiktok.com/" class="sidebar-link" target="_blank">
                                 <i class="fa-brands fa-tiktok"></i><span>TikTok</span>
                             </a>
                         </div>

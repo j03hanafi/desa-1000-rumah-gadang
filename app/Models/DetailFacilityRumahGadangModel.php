@@ -9,9 +9,9 @@ class DetailFacilityRumahGadangModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'detail_facility_rumah_gadang';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_detail_facility_rumah_gadang';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'rumah_gadang_id', 'facility_id'];
+    protected $allowedFields    = ['id_detail_facility_rumah_gadang', 'id_rumah_gadang', 'id_facility_rumah_gadang'];
 
     // Dates
     protected $useTimestamps = true;
@@ -29,8 +29,8 @@ class DetailFacilityRumahGadangModel extends Model
     public function get_facility_by_rg_api($rumah_gadang_id = null) {
         $query = $this->db->table($this->table)
             ->select('facility_rumah_gadang.facility')
-            ->where('rumah_gadang_id', $rumah_gadang_id)
-            ->join('facility_rumah_gadang', 'detail_facility_rumah_gadang.facility_id = facility_rumah_gadang.id')
+            ->where('id_rumah_gadang', $rumah_gadang_id)
+            ->join('facility_rumah_gadang', 'detail_facility_rumah_gadang.id_facility_rumah_gadang = facility_rumah_gadang.id')
             ->get();
         return $query;
     }
@@ -38,15 +38,15 @@ class DetailFacilityRumahGadangModel extends Model
     public function get_facility_by_fc_api($facility_id = null) {
         $query = $this->db->table($this->table)
             ->select('*')
-            ->where('facility_id', $facility_id)
+            ->where('id_facility_rumah_gadang', $facility_id)
             ->get();
         return $query;
     }
     
     
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 0);
+        $lastId = $this->db->table($this->table)->select('id_detail_facility_rumah_gadang')->orderBy('id_detail_facility_rumah_gadang', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_detail_facility_rumah_gadang'], 0);
         $id = sprintf('%03d', $count + 1);
         return $id;
     }
@@ -56,9 +56,9 @@ class DetailFacilityRumahGadangModel extends Model
         foreach ($data as $facility) {
             $new_id = $this->get_new_id_api();
             $content = [
-                'id' => $new_id,
-                'rumah_gadang_id' => $id,
-                'facility_id' => $facility,
+                'id_detail_facility_rumah_gadang' => $new_id,
+                'id_rumah_gadang' => $id,
+                'id_facility_rumah_gadang' => $facility,
                 'created_at' => Time::now(),
                 'updated_at' => Time::now(),
             ];
@@ -68,7 +68,7 @@ class DetailFacilityRumahGadangModel extends Model
     }
 
     public function update_facility_api($id = null, $data = null) {
-        $queryDel = $this->db->table($this->table)->delete(['rumah_gadang_id' => $id]);
+        $queryDel = $this->db->table($this->table)->delete(['id_rumah_gadang' => $id]);
         $queryIns = $this->add_facility_api($id, $data);
         return $queryDel && $queryIns;
     }

@@ -9,9 +9,9 @@ class EventModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'event';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_event';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'name', 'date_start', 'date_end', 'recurs', 'max_recurs', 'description', 'ticket_price', 'contact_person', 'category_id', 'owner', 'geom', 'video_url', 'date_next', 'calendar'];
+    protected $allowedFields    = ['id_event', 'name', 'event_start', 'event_end', 'description', 'ticket_price', 'cp', 'id_event_category', 'id_user', 'geom', 'video_url', 'committee', 'lat', 'lng'];
 
     // Dates
     protected $useTimestamps = true;
@@ -28,117 +28,117 @@ class EventModel extends Model
     // API
     public function get_list_ev_api() {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
-            ->select("{$columns}, event.lat, event.lng, category_event.category")
-            ->from('village')
+            ->select("{$columns}, event.lat, event.lng, event_category.category")
+            ->from('regional')
             ->where($vilGeom)
-            ->join('category_event', 'event.category_id = category_event.id')
+            ->join('event_category', 'event.id_event_category = event_category.id')
             ->get();
         return $query;
     }
 
     public function list_by_owner_api($id = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, event.lat, event.lng")
-            ->from('village')
+            ->from('regional')
             ->where($vilGeom)
-            ->where('owner', $id)
+            ->where('id_user', $id)
             ->get();
         return $query;
     }
 
     public function get_ev_by_id_api($id = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
         $geoJson = "ST_AsGeoJSON({$this->table}.geom) AS geoJson";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
-            ->select("{$columns}, event.lat, event.lng, {$geoJson}, category_event.category")
-            ->from('village')
-            ->where('event.id', $id)
+            ->select("{$columns}, event.lat, event.lng, {$geoJson}, event_category.category")
+            ->from('regional')
+            ->where('event.id_event', $id)
             ->where($vilGeom)
-            ->join('category_event', 'event.category_id = category_event.id')
+            ->join('event_category', 'event.id_event_category = event_category.id')
             ->get();
         return $query;
     }
 
     public function get_ev_by_name_api($name = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, event.lat, event.lng")
-            ->from('village')
+            ->from('regional')
             ->like("{$this->table}.name", $name)
             ->where($vilGeom)
             ->get();
         return $query;
     }
-    
+
     public function get_ev_by_radius_api($data = null) {
         $radius = (int)$data['radius'] / 1000;
         $lat = $data['lat'];
         $long = $data['long'];
         $jarak = "(6371 * acos(cos(radians({$lat})) * cos(radians({$this->table}.lat)) * cos(radians({$this->table}.lng) - radians({$long})) + sin(radians({$lat}))* sin(radians({$this->table}.lat))))";
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, event.lat, event.lng, {$jarak} as jarak")
-            ->from('village')
+            ->from('regional')
             ->where($vilGeom)
             ->having(['jarak <=' => $radius])
             ->get();
         return $query;
     }
-    
+
     public function get_ev_by_category_api($category = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, event.lat, event.lng")
-            ->from('village')
-            ->where("{$this->table}.category_id", $category)
+            ->from('regional')
+            ->where("{$this->table}.id_event_category", $category)
             ->where($vilGeom)
             ->get();
         return $query;
     }
-    
+
     public function get_ev_by_date_api($date = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, event.lat, event.lng")
-            ->from('village')
-            ->where('date_start <=', $date)
+            ->from('regional')
+            ->where('event_start <=', $date)
             ->where($vilGeom)
             ->get();
         return $query;
     }
-    
+
     public function get_ev_in_id_api($id = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id,{$this->table}.name,{$this->table}.date_start,{$this->table}.date_end,{$this->table}.recurs,{$this->table}.max_recurs,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.contact_person,{$this->table}.category_id,{$this->table}.owner,{$this->table}.video_url";
-        $vilGeom = "village.id = '1' AND ST_Contains(village.geom, {$this->table}.geom)";
+        $columns = "{$this->table}.id_event,{$this->table}.name,{$this->table}.event_start,{$this->table}.event_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
             ->select("{$columns}, event.lat, event.lng")
-            ->from('village')
-            ->whereIn('event.id', $id)
+            ->from('regional')
+            ->whereIn('event.id_event', $id)
             ->where($vilGeom)
             ->get();
         return $query;
     }
 
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 1);
+        $lastId = $this->db->table($this->table)->select('id_event')->orderBy('id_event', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_event'], 1);
         $id = sprintf('E%02d', $count + 1);
         return $id;
     }
@@ -150,7 +150,7 @@ class EventModel extends Model
             ->insert($event);
         $update = $this->db->table($this->table)
             ->set('geom', "ST_GeomFromGeoJSON('{$geojson}')", false)
-            ->where('id', $event['id'])
+            ->where('id_event', $event['id'])
             ->update();
         return $insert && $update;
     }
@@ -163,7 +163,7 @@ class EventModel extends Model
         }
         $event['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
-            ->where('id', $id)
+            ->where('id_event', $id)
             ->update($event);
         return $query;
     }

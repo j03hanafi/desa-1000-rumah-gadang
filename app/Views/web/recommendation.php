@@ -42,9 +42,9 @@
                                     <?php $i = 0; ?>
                                     <?php foreach ($data as $item) : ?>
                                         <div class="carousel-item<?= ($i == 0) ? ' active' : ''; ?>">
-                                            <script>objectMarker("<?= esc($item['id']); ?>", <?= esc($item['lat']); ?>, <?= esc($item['lng']); ?>);</script>
+                                            <script>objectMarker("<?= esc($item['id_rumah_gadang']); ?>", <?= esc($item['lat']); ?>, <?= esc($item['lng']); ?>);</script>
                                             <a>
-                                                <img src="<?= base_url('media/photos/' . esc($item['gallery'][0])); ?>" class="d-block w-100" alt="<?= esc($item['name']); ?>" onclick="focusObject(`<?= esc($item['id']); ?>`);">
+                                                <img src="<?= base_url('media/photos/' . esc($item['gallery'][0])); ?>" class="d-block w-100" alt="<?= esc($item['name']); ?>" onclick="focusObject(`<?= esc($item['id_rumah_gadang']); ?>`);">
                                             </a>
                                             <div class="carousel-caption d-none d-md-block">
                                                 <?php $i++; ?>

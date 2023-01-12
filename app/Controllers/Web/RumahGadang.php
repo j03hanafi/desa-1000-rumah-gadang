@@ -315,7 +315,7 @@ class RumahGadang extends ResourcePresenter
     public function recommendation() {
         $contents = $this->rumahGadangModel->get_recommendation_api()->getResultArray();
         for ($index = 0; $index < count($contents); $index++) {
-            $list_gallery = $this->galleryRumahGadangModel->get_gallery_api($contents[$index]['id'])->getResultArray();
+            $list_gallery = $this->galleryRumahGadangModel->get_gallery_api($contents[$index]['id_rumah_gadang'])->getResultArray();
             $galleries = array();
             foreach ($list_gallery as $gallery) {
                 $galleries[] = $gallery['url'];

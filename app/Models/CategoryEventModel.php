@@ -7,10 +7,10 @@ use CodeIgniter\Model;
 class CategoryEventModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'category_event';
-    protected $primaryKey       = 'id';
+    protected $table            = 'event_category';
+    protected $primaryKey       = 'id_event_category';
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id', 'category'];
+    protected $allowedFields    = ['id_event_category', 'category'];
 
     // Dates
     protected $useTimestamps = true;
@@ -27,7 +27,7 @@ class CategoryEventModel extends Model
     // API
     public function get_list_cat_api() {
         $query = $this->db->table($this->table)
-            ->select('id, category')
+            ->select('id_event_category, category')
             ->get();
         return $query;
     }
