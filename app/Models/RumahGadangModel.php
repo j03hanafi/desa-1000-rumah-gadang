@@ -44,17 +44,17 @@ class RumahGadangModel extends Model
         //$coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
         $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
-            ->select("rumah_gadang.id_rumah_gadang, rumah_gadang.name, id_recommendation, recommendation.name as recommendation, rumah_gadang.lat, rumah_gadang.lng")
+            ->select("rumah_gadang.id_rumah_gadang as id, rumah_gadang.name, rumah_gadang.id_recommendation, recommendation_place.name as recommendation, rumah_gadang.lat, rumah_gadang.lng")
             ->from('regional')
             ->where($vilGeom)
-            ->join('recommendation', 'rumah_gadang.id_recommendation = recommendation.id')
+            ->join('recommendation_place', 'rumah_gadang.id_recommendation = recommendation_place.id_recommendation')
             ->get();
         return $query;
     }
     
     public function get_recommendation_data_api() {
-        $query = $this->db->table('recommendation')
-            ->select("recommendation.id, recommendation.name,")
+        $query = $this->db->table('recommendation_place')
+            ->select("recommendation_place.id_recommendation as id, recommendation_place.name,")
             ->get();
         return $query;
     }
@@ -63,11 +63,11 @@ class RumahGadangModel extends Model
         //$coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
         $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
-            ->select("rumah_gadang.id_rumah_gadang, rumah_gadang.name, id_recommendation, recommendation.name as recommendation, rumah_gadang.lat, rumah_gadang.lng")
+            ->select("rumah_gadang.id_rumah_gadang, rumah_gadang.name, id_recommendation, recommendation_place.name as recommendation, rumah_gadang.lat, rumah_gadang.lng")
             ->from('regional')
             ->where($vilGeom)
             ->where('id_user', $id)
-            ->join('recommendation', 'rumah_gadang.id_recommendation = recommendation.id')
+            ->join('recommendation_place', 'rumah_gadang.id_recommendation = recommendation_place.id_recommendation')
             ->get();
         return $query;
     }
@@ -204,10 +204,10 @@ class RumahGadangModel extends Model
 
     public function update_recom_api($data = null) {
         $query = false;
-        $rumah_gadang['id_recommendation'] = $data['recom'];
+        $rumah_gadang['id_recommendation'] = $data['id_recommendation'];
         $rumah_gadang['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
-            ->where('id', $data['id'])
+            ->where('id_rumah_gadang', $data['id_rumah_gadang'])
             ->update($rumah_gadang);
         return $query;
     }

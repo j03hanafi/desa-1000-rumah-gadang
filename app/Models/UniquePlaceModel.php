@@ -125,21 +125,20 @@ class UniquePlaceModel extends Model
             ->insert($unique_place);
         $update = $this->db->table($this->table)
             ->set('geom', "ST_GeomFromGeoJSON('{$geojson}')", false)
-            ->where('id_unique_place', $unique_place['id'])
+            ->where('id_unique_place', $unique_place['id_unique_place'])
             ->update();
         return $insert && $update;
     }
 
-    public function update_up_api($id = null, $unique_place = null) {
-        foreach ($unique_place as $key => $value) {
-            if(empty($value)) {
-                unset($unique_place[$key]);
-            }
-        }
+    public function update_up_api($id = null, $unique_place = null, $geojson = null) {
         $unique_place['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
             ->where('id_unique_place', $id)
             ->update($unique_place);
-        return $query;
+        $update = $this->db->table($this->table)
+            ->set('geom', "ST_GeomFromGeoJSON('{$geojson}')", false)
+            ->where('id_unique_place', $id)
+            ->update();
+        return $query && $update;
     }
 }

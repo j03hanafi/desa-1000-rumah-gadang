@@ -7,6 +7,7 @@ use App\Models\AccountModel;
 use App\Models\EventModel;
 use App\Models\FacilityRumahGadangModel;
 use App\Models\RumahGadangModel;
+use App\Models\UniquePlaceModel;
 
 class Dashboard extends BaseController
 {
@@ -14,12 +15,14 @@ class Dashboard extends BaseController
     protected $eventModel;
     protected $facilityModel;
     protected $accountModel;
+    protected $uniquePlace;
     protected $helpers = ['auth'];
     
     public function __construct()
     {
         $this->rumahGadangModel = new RumahGadangModel();
         $this->eventModel = new EventModel();
+        $this->uniquePlace = new UniquePlaceModel();
         $this->facilityModel = new FacilityRumahGadangModel();
         $this->accountModel = new AccountModel();
     }
@@ -62,6 +65,21 @@ class Dashboard extends BaseController
         $data = [
             'title' => 'Manage Event',
             'category' => 'Event',
+            'data' => $contents,
+        ];
+        return view('dashboard/manage', $data);
+    }
+
+    public function uniquePlace()
+    {
+        $contents = [];
+        if (in_groups('admin')) {
+            $contents = $this->uniquePlace->get_list_up_api()->getResultArray();
+        }
+
+        $data = [
+            'title' => 'Manage Unique Place',
+            'category' => 'Unique Place',
             'data' => $contents,
         ];
         return view('dashboard/manage', $data);

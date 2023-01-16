@@ -58,13 +58,6 @@
                                                name="address" placeholder="Address" value="<?= (user()->address == '') ? '' : user()->address; ?>">
                                     </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <div class="form-group">
-                                        <label for="phone" class="mb-2">Phone</label>
-                                        <input type="tel" id="phone" class="form-control"
-                                               name="phone" placeholder="Phone" value="<?= (user()->phone == '') ? '' : user()->phone; ?>">
-                                    </div>
-                                </div>
                                 <div class="col-12 d-flex justify-content-end mb-3">
                                     <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                     <button type="reset"

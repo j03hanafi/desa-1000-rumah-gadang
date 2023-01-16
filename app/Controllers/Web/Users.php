@@ -126,7 +126,6 @@ class Users extends ResourcePresenter
             'last_name' => $request['last_name'],
             'email' => $request['email'],
             'address' => $request['address'],
-            'phone' => $request['phone'],
         ];
         foreach ($requestData as $key => $value) {
             if(empty($value)) {
@@ -159,11 +158,11 @@ class Users extends ResourcePresenter
             $filenames = get_filenames($filepath);
             $avatar = new File($filepath . '/' . $filenames[0]);
             $avatar->move(FCPATH . 'media/photos');
-            $requestData['avatar'] = $avatar->getFilename();
+            $requestData['photo'] = $avatar->getFilename();
             delete_files($filepath);
             rmdir($filepath);
         } else {
-            $requestData['avatar'] = 'default.jpg';
+            $requestData['photo'] = 'default.jpg';
         }
         $role = [
             'group_id' => $request['role']

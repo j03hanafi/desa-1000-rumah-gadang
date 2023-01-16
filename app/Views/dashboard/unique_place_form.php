@@ -33,7 +33,7 @@ $edit = in_array('edit', $uri);
                     <h4 class="card-title text-center"><?= $title; ?></h4>
                 </div>
                 <div class="card-body">
-                    <form class="form form-vertical" action="<?= ($edit) ? base_url('dashboard/event/update') . '/' . $data['id'] : base_url('dashboard/event'); ?>" method="post" onsubmit="checkRequired(event)" enctype="multipart/form-data">
+                    <form class="form form-vertical" action="<?= ($edit) ? base_url('dashboard/uniquePlace/update') . '/' . $data['id'] : base_url('dashboard/uniquePlace'); ?>" method="post" onsubmit="checkRequired(event)" enctype="multipart/form-data">
                         <div class="form-body">
                             <div class="form-group mb-4">
                                 <label for="geo-json" class="mb-2">GeoJSON</label>
@@ -41,37 +41,14 @@ $edit = in_array('edit', $uri);
                                        name="geo-json" placeholder="GeoJSON" readonly="readonly" required value='<?= ($edit) ? $data['geoJson'] : ''; ?>'>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="name" class="mb-2">Event Name</label>
+                                <label for="name" class="mb-2">Unique Place Name</label>
                                 <input type="text" id="name" class="form-control"
-                                       name="name" placeholder="Event Name" value="<?= ($edit) ? $data['name'] : old('name'); ?>" required>
+                                       name="name" placeholder="Unique Place Name" value="<?= ($edit) ? $data['name'] : old('name'); ?>" required>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="date_start" class="mb-2">Date Start</label>
-                                <div class="input-group date" id="datepicker_start">
-                                    <input type="text" id="date_start" class="form-control"
-                                           name="date_start" placeholder="Date Start" aria-label="Date Start" aria-describedby="date_start" value="<?= ($edit) ? $data['date_start'] : old('date_start'); ?>" required>
-                                    <div class="input-group-addon ms-2">
-                                        <i class="fa-solid fa-calendar-days" style="font-size: 1.5rem; vertical-align: bottom"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="date_end" class="mb-2">Date End</label>
-                                <div class="input-group date" id="datepicker_end">
-                                    <input type="text" id="date_end" class="form-control"
-                                           name="date_end" placeholder="Date End" aria-label="Date End" aria-describedby="date_end" value="<?= ($edit) ? $data['date_end'] : old('date_end'); ?>">
-                                    <div class="input-group-addon ms-2">
-                                        <i class="fa-solid fa-calendar-days" style="font-size: 1.5rem; vertical-align: bottom"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="ticket_price" class="mb-2">Ticket Price</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">Rp </span>
-                                    <input type="number" id="ticket_price" class="form-control"
-                                           name="ticket_price" placeholder="Ticket Price" aria-label="Ticket Price" aria-describedby="ticket-price" value="<?= ($edit) ? $data['ticket_price'] : old('ticket_price'); ?>">
-                                </div>
+                                <label for="address" class="mb-2">Address</label>
+                                <input type="text" id="address" class="form-control"
+                                       name="address" placeholder="Address" value="<?= ($edit) ? $data['address'] : old('address'); ?>">
                             </div>
                             <div class="form-group mb-4">
                                 <label for="contact_person" class="mb-2">Contact Person</label>
@@ -93,11 +70,11 @@ $edit = in_array('edit', $uri);
                                 <textarea class="form-control" id="description" name="description" rows="4"><?= ($edit) ? $data['description'] : old('description'); ?></textarea>
                             </div>
                             <fieldset class="form-group mb-4">
-                                <label for="category" class="mb-2">Category</label>
+                                <label for="category" class="mb-2">Status</label>
                                 <select class="form-select" id="category" name="category">
                                     <?php foreach ($categories as $category): ?>
                                     <?php if ($edit): ?>
-                                            <option value="<?= esc($category['id']); ?>" <?= (esc($data['category_id']) == esc($category['id'])) ? 'selected' : ''; ?>><?= esc($category['category']); ?></option>
+                                            <option value="<?= esc($category['id']); ?>" <?= (esc($data['status']) == esc($category['id'])) ? 'selected' : ''; ?>><?= esc($category['category']); ?></option>
                                     <?php else: ?>
                                             <option value="<?= esc($category['id']); ?>"><?= esc($category['category']); ?></option>
                                     <?php endif; ?>
@@ -202,7 +179,7 @@ $edit = in_array('edit', $uri);
     function checkRequired(event) {
         if (!$('#geo-json').val()) {
             event.preventDefault();
-            Swal.fire('Please select location for the New Event');
+            Swal.fire('Please select location for the New Unique Place');
         }
     }
 

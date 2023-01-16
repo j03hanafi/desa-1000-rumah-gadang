@@ -47,10 +47,6 @@
                         <p class="mb-2">Address</p>
                         <p class="fw-bold fs-5"><?= (user()->address == '') ? '-' : user()->address; ?></p>
                     </div>
-                    <div class="">
-                        <p class="mb-2">Phone</p>
-                        <p class="fw-bold fs-5"><?= (user()->phone == '') ? '-' : user()->phone; ?></p>
-                    </div>
                 </div>
                 <div class="col-md-6 col-12 order-md-last order-first mb-5">
                     <p class="mb-2">Profile Picture</p>

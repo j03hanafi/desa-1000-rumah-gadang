@@ -49,24 +49,28 @@
 - [x]	Owner bisa melihat detail informasi dari Rumah Gadang yang dipilih dengan lokasi Rumah Gadang pada peta beserta rating dan review Rumah Gadang
 - [x]	Owner dapat mengubah data Rumah Gadang yang dipilih
 - [x]	Owner dapat menghapus data Rumah Gadang yang dipilih
-- [ ]	Owner bisa melihat daftar seluruh event berdasarkan owner
-- [ ]	Owner dapat menambahkan data event
-- [ ]	Owner bisa melihat detail informasi dari event yang dipilih dengan lokasi event pada peta beserta rating dan review event
-- [ ]	Owner dapat mengubah data event yang dipilih
-- [ ]	Owner dapat menghapus data event yang dipilih
-- [ ]	Owner dapat menambahkan data unique place
-- [ ]	Owner bisa melihat detail informasi dari unique place yang dipilih dengan lokasi unique place pada peta beserta rating dan review unique place
-- [ ]	Owner dapat mengubah data unique place yang dipilih
-- [ ]	Owner dapat menghapus data unique place yang dipilih
-- [ ]	Owner bisa melihat dan mengubah daftar rekomendasi Rumah Gadang
-- [ ]	Owner dapat melihat daftar fasilitas yang tersedia di Rumah Gadang
-- [ ]	Owner dapat menambahkan fasilitas yang tersedia di Rumah Gadang
-- [ ]	Owner dapat mengubah fasilitas yang tersedia di Rumah Gadang
-- [ ]	Owner dapat menghapus fasilitas yang tersedia di Rumah Gadang
-- [ ]	Owner bisa melihat daftar seluruh pengguna terdaftar
-- [ ]	Owner bisa melihat detail informasi dari pengguna terdaftar yang dipilih
-- [ ]	Owner dapat mengubah data pengguna terdaftar yang dipilih
-- [ ]	Owner dapat menghapus pengguna terdaftar yang dipilih
+- [x]	Owner bisa melihat daftar seluruh event
+- [x]	Owner dapat menambahkan data event
+- [x]	Owner bisa melihat detail informasi dari event yang dipilih dengan lokasi event pada peta beserta rating dan review event
+- [x]	Owner dapat mengubah data event yang dipilih
+- [x]	Owner dapat menghapus data event yang dipilih
+- [x]	Owner bisa melihat daftar seluruh unique place
+- [x]	Owner dapat menambahkan data unique place
+- [x]	Owner bisa melihat detail informasi dari unique place yang dipilih dengan lokasi unique place pada peta beserta rating dan review unique place
+- [x]	Owner dapat mengubah data unique place yang dipilih
+- [x]	Owner dapat menghapus data unique place yang dipilih
+- [x]	Owner bisa melihat dan mengubah daftar rekomendasi Rumah Gadang
+- [x]	Owner dapat melihat daftar fasilitas yang tersedia di Rumah Gadang
+- [x]	Owner dapat menambahkan fasilitas yang tersedia di Rumah Gadang
+- [x]	Owner dapat mengubah fasilitas yang tersedia di Rumah Gadang
+- [x]	Owner dapat menghapus fasilitas yang tersedia di Rumah Gadang
+- [x]	Owner bisa melihat daftar seluruh pengguna terdaftar
+- [x]	Owner bisa melihat detail informasi dari pengguna terdaftar yang dipilih
+- [x]	Owner dapat mengubah data pengguna terdaftar yang dipilih
+- [x]	Owner dapat menghapus pengguna terdaftar yang dipilih
+
+===================
+
 - [ ]	Visitor dapat menampilkan current position pada peta secara manual maupun otomatis
 - [ ]	Visitor dapat melihat semua Rumah Gadang dengan lokasi masing-masing Rumah Gadang pada peta
 - [ ]	Visitor dapat melihat lokasi dan informasi ringkas dari Rumah Gadang yang dipilih pada peta

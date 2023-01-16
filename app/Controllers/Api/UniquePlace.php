@@ -111,7 +111,24 @@ class UniquePlace extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $deleteUP = $this->uniquePlaceModel->delete(['id_unique_place' => $id]);
+        if($deleteUP) {
+            $response = [
+                'status' => 200,
+                'message' => [
+                    "Success delete Unique Place"
+                ]
+            ];
+            return $this->respondDeleted($response);
+        } else {
+            $response = [
+                'status' => 404,
+                'message' => [
+                    "Unique Place not found"
+                ]
+            ];
+            return $this->failNotFound($response);
+        }
     }
 
     public function findByRadius()

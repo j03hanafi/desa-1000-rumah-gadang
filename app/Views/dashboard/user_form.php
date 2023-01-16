@@ -101,13 +101,6 @@ $edit = in_array('edit', $uri);
                                                name="address" placeholder="Address" value="<?= ($edit) ? $data['address'] : old('address'); ?>">
                                     </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <div class="form-group">
-                                        <label for="phone" class="mb-2">Phone</label>
-                                        <input type="number" id="phone" class="form-control"
-                                               name="phone" placeholder="Phone" value="<?= ($edit) ? $data['phone'] : old('phone'); ?>">
-                                    </div>
-                                </div>
                                 <div class="col-12 d-flex justify-content-end mb-3">
                                     <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                     <button type="reset"
@@ -167,7 +160,7 @@ $edit = in_array('edit', $uri);
         credits: false,
     });
     <?php if ($edit): ?>
-    pond.addFile(`<?= base_url('media/photos/' . $data['avatar']); ?>`);
+    pond.addFile(`<?= base_url('media/photos/' . $data['photo']); ?>`);
     <?php endif; ?>
     FilePond.setOptions({
         server: '/upload/avatar'

@@ -54,7 +54,7 @@ class EventModel extends Model
 
     public function get_ev_by_id_api($id = null) {
         // $coords = "ST_Y(ST_Centroid({$this->table}.geom)) AS lat, ST_X(ST_Centroid({$this->table}.geom)) AS lng";
-        $columns = "{$this->table}.id_event as id,{$this->table}.name,{$this->table}.event_start as date_start,{$this->table}.event_end as date_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp as contact_person,{$this->table}.id_event_category,{$this->table}.id_user,{$this->table}.video_url";
+        $columns = "{$this->table}.id_event as id,{$this->table}.name,{$this->table}.event_start as date_start,{$this->table}.event_end as date_end,{$this->table}.description,{$this->table}.ticket_price,{$this->table}.cp as contact_person,{$this->table}.id_event_category as category_id,{$this->table}.id_user,{$this->table}.video_url";
         $geoJson = "ST_AsGeoJSON({$this->table}.geom) AS geoJson";
         $vilGeom = "regional.id_regional = '1' AND ST_Contains(regional.geom, {$this->table}.geom)";
         $query = $this->db->table($this->table)
@@ -151,22 +151,21 @@ class EventModel extends Model
             ->insert($event);
         $update = $this->db->table($this->table)
             ->set('geom', "ST_GeomFromGeoJSON('{$geojson}')", false)
-            ->where('id_event', $event['id'])
+            ->where('id_event', $event['id_event'])
             ->update();
         return $insert && $update;
     }
 
-    public function update_ev_api($id = null, $event = null) {
-        foreach ($event as $key => $value) {
-            if(empty($value)) {
-                unset($event[$key]);
-            }
-        }
+    public function update_ev_api($id = null, $event = null, $geojson = null) {
         $event['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
             ->where('id_event', $id)
             ->update($event);
-        return $query;
+        $update = $this->db->table($this->table)
+            ->set('geom', "ST_GeomFromGeoJSON('{$geojson}')", false)
+            ->where('id_event', $id)
+            ->update();
+        return $query && $update;
     }
     
 }

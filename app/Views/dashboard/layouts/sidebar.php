@@ -52,6 +52,15 @@ $uri3 = $uri[3] ?? '';
                     </li>
                     <?php endif; ?>
 
+                    <!-- Manage UP -->
+                    <?php if (in_groups(['admin'])): ?>
+                        <li class="sidebar-item <?= ($uri1 == 'uniquePlace') ? 'active' : '' ?>">
+                            <a href="<?= base_url('dashboard/uniquePlace'); ?>" class="sidebar-link">
+                                <i class="fa-solid fa-location-dot"></i><span>Unique Place</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
                     <!-- Manage Facility -->
                     <?php if (in_groups(['admin'])): ?>
                     <li class="sidebar-item <?= ($uri1 == 'facility') ? 'active' : '' ?>">

@@ -2,15 +2,18 @@
 
 namespace App\Controllers\Web;
 
+use App\Models\CategoryEventModel;
 use App\Models\GalleryUniquePlaceModel;
 use App\Models\ReviewModel;
 use App\Models\UniquePlaceModel;
+use CodeIgniter\Files\File;
 use CodeIgniter\RESTful\ResourcePresenter;
 
 class UniquePlace extends ResourcePresenter
 {
     protected $uniquePlaceModel;
     protected $uniquePlaceGalleryModel;
+    protected $categoryEventModel;
     protected $reviewModel;
     protected $helpers = ['auth', 'url', 'filesystem'];
 
@@ -19,6 +22,7 @@ class UniquePlace extends ResourcePresenter
         $this->uniquePlaceModel = new UniquePlaceModel();
         $this->uniquePlaceGalleryModel = new GalleryUniquePlaceModel();
         $this->reviewModel = new ReviewModel();
+        $this->categoryEventModel = new CategoryEventModel();
     }
 
     /**
@@ -83,7 +87,12 @@ class UniquePlace extends ResourcePresenter
      */
     public function new()
     {
-        //
+        $categories = $this->categoryEventModel->get_list_cat_api()->getResultArray();
+        $data = [
+            'title' => 'New Unique Place',
+            'categories' => $categories
+        ];
+        return view('dashboard/unique_place_form', $data);
     }
 
     /**
@@ -94,7 +103,57 @@ class UniquePlace extends ResourcePresenter
      */
     public function create()
     {
-        //
+        $request = $this->request->getPost();
+        $id = $this->uniquePlaceModel->get_new_id_api();
+        $requestData = [
+            'id_unique_place' => $id,
+            'name' => $request['name'],
+            'address' => $request['address'],
+            'description' => $request['description'],
+            'cp' => $request['contact_person'],
+            'status' => $request['category'],
+            'id_user' => $request['owner'],
+            'lat' => $request['lat'],
+            'lng' => $request['lng'],
+        ];
+        foreach ($requestData as $key => $value) {
+            if(empty($value)) {
+                unset($requestData[$key]);
+            }
+        }
+        $geojson = $request['geo-json'];
+        if (isset($request['video'])){
+            $folder = $request['video'];
+            $filepath = WRITEPATH . 'uploads/' . $folder;
+            $filenames = get_filenames($filepath);
+            $vidFile = new File($filepath . '/' . $filenames[0]);
+            $vidFile->move(FCPATH . 'media/videos');
+            delete_files($filepath);
+            rmdir($filepath);
+            $requestData['video_url'] = $vidFile->getFilename();
+        }
+        $addEV = $this->uniquePlaceModel->add_up_api($requestData, $geojson);
+
+        if (isset($request['gallery'])) {
+            $folders = $request['gallery'];
+            $gallery = array();
+            foreach ($folders as $folder) {
+                $filepath = WRITEPATH . 'uploads/' . $folder;
+                $filenames = get_filenames($filepath);
+                $fileImg = new File($filepath . '/' . $filenames[0]);
+                $fileImg->move(FCPATH . 'media/photos');
+                delete_files($filepath);
+                rmdir($filepath);
+                $gallery[] = $fileImg->getFilename();
+            }
+            $this->uniquePlaceGalleryModel->add_gallery_api($id, $gallery);
+        }
+
+        if ($addEV) {
+            return redirect()->to(base_url('dashboard/uniquePlace') . '/' . $id);
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -106,7 +165,26 @@ class UniquePlace extends ResourcePresenter
      */
     public function edit($id = null)
     {
-        //
+        $uniquePlace = $this->uniquePlaceModel->get_up_by_id_api($id)->getRowArray();
+        if (empty($uniquePlace)) {
+            return redirect()->to('dashboard/uniquePlace');
+        }
+
+        $list_gallery = $this->uniquePlaceGalleryModel->get_gallery_api($id)->getResultArray();
+        $galleries = array();
+        foreach ($list_gallery as $gallery) {
+            $galleries[] = $gallery['url'];
+        }
+
+        $categories = $this->categoryEventModel->get_list_cat_api()->getResultArray();
+
+        $uniquePlace['gallery'] = $galleries;
+        $data = [
+            'title' => 'Edit Unique Place',
+            'data' => $uniquePlace,
+            'categories' => $categories
+        ];
+        return view('dashboard/unique_place_form', $data);
     }
 
     /**
@@ -119,7 +197,59 @@ class UniquePlace extends ResourcePresenter
      */
     public function update($id = null)
     {
-        //
+        $request = $this->request->getPost();
+        $requestData = [
+            'name' => $request['name'],
+            'address' => $request['address'],
+            'description' => $request['description'],
+            'cp' => $request['contact_person'],
+            'status' => $request['category'],
+            'id_user' => $request['owner'],
+            'lat' => $request['lat'],
+            'lng' => $request['lng'],
+        ];
+        foreach ($requestData as $key => $value) {
+            if(empty($value)) {
+                unset($requestData[$key]);
+            }
+        }
+        $geojson = $request['geo-json'];
+        if (isset($request['video'])){
+            $folder = $request['video'];
+            $filepath = WRITEPATH . 'uploads/' . $folder;
+            $filenames = get_filenames($filepath);
+            $vidFile = new File($filepath . '/' . $filenames[0]);
+            $vidFile->move(FCPATH . 'media/videos');
+            delete_files($filepath);
+            rmdir($filepath);
+            $requestData['video_url'] = $vidFile->getFilename();
+        } else {
+            $requestData['video_url'] = null;
+        }
+        $updateEV = $this->uniquePlaceModel->update_up_api($id, $requestData, $geojson);
+
+        if (isset($request['gallery'])) {
+            $folders = $request['gallery'];
+            $gallery = array();
+            foreach ($folders as $folder) {
+                $filepath = WRITEPATH . 'uploads/' . $folder;
+                $filenames = get_filenames($filepath);
+                $fileImg = new File($filepath . '/' . $filenames[0]);
+                $fileImg->move(FCPATH . 'media/photos');
+                delete_files($filepath);
+                rmdir($filepath);
+                $gallery[] = $fileImg->getFilename();
+            }
+            $this->uniquePlaceGalleryModel->update_gallery_api($id, $gallery);
+        } else {
+            $this->uniquePlaceGalleryModel->delete_gallery_api($id);
+        }
+
+        if ($updateEV) {
+            return redirect()->to(base_url('dashboard/uniquePlace') . '/' . $id);
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 
     /**

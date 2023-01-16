@@ -41,15 +41,11 @@
                         <p class="mb-2">Address</p>
                         <p class="fw-bold fs-5"><?= (esc($data['address']) == '') ? '-' : esc($data['address']); ?></p>
                     </div>
-                    <div class="">
-                        <p class="mb-2">Phone</p>
-                        <p class="fw-bold fs-5"><?= (esc($data['phone']) == '') ? '-' : esc($data['phone']); ?></p>
-                    </div>
                 </div>
                 <div class="col-md-6 col-12 order-md-last order-first mb-5">
                     <p class="mb-2">Profile Picture</p>
                     <div class="text-md-start text-center" id="avatar-container">
-                        <img src="<?= base_url('media/photos'); ?>/<?= esc($data['avatar']); ?>" alt="avatar" class="img-fluid img-thumbnail rounded-circle">
+                        <img src="<?= base_url('media/photos'); ?>/<?= esc($data['photo']); ?>" alt="avatar" class="img-fluid img-thumbnail rounded-circle">
                     </div>
                 </div>
             </div>

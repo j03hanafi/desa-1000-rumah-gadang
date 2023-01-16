@@ -114,16 +114,16 @@ class RumahGadang extends ResourceController
         $request = $this->request->getJSON(true);
         $id = $this->rumahGadangModel->get_new_id_api();
         $requestData = [
-            'id' => $id,
+            'id_rumah_gadang' => $id,
             'name' => $request['name'],
             'address' => $request['address'],
             'open' => $request['open'],
             'close' => $request['close'],
-            'ticket_price' => $request['ticket_price'],
-            'contact_person' => $request['contact_person'],
+            'price_ticket' => $request['ticket_price'],
+            'cp' => $request['contact_person'],
             'status' => $request['status'],
-            'recom' => $request['recom'],
-            'owner' => $request['owner'],
+            'id_recommendation' => $request['recom'],
+            'id_user' => $request['owner'],
             'description' => $request['description'],
             'video_url' => $request['video_url'],
         ];
@@ -183,11 +183,11 @@ class RumahGadang extends ResourceController
             'address' => $request['address'],
             'open' => $request['open'],
             'close' => $request['close'],
-            'ticket_price' => $request['ticket_price'],
-            'contact_person' => $request['contact_person'],
+            'price_ticket' => $request['ticket_price'],
+            'cp' => $request['contact_person'],
             'status' => $request['status'],
-            'recom' => $request['recom'],
-            'owner' => $request['owner'],
+            'id_recommendation' => $request['recom'],
+            'id_user' => $request['owner'],
             'description' => $request['description'],
             'video_url' => $request['video_url'],
         ];
@@ -251,7 +251,7 @@ class RumahGadang extends ResourceController
 
         $contents = $this->rumahGadangModel->get_recommendation_api()->getResultArray();
         for ($index = 0; $index < count($contents); $index++) {
-            $list_gallery = $this->galleryRumahGadangModel->get_gallery_api($contents[$index]['id'])->getResultArray();
+            $list_gallery = $this->galleryRumahGadangModel->get_gallery_api($contents[$index]['id_rumah_gadang'])->getResultArray();
             $galleries = array();
             foreach ($list_gallery as $gallery) {
                 $galleries[] = $gallery['url'];
@@ -309,8 +309,8 @@ class RumahGadang extends ResourceController
     public function updateRecommendation() {
         $request = $this->request->getPost();
         $requestData = [
-            'id' => $request['id'],
-            'recom' => $request['recom']
+            'id_rumah_gadang' => $request['id'],
+            'id_recommendation' => $request['recom']
         ];
         $updateRecom = $this->rumahGadangModel->update_recom_api($requestData);
         if($updateRecom) {

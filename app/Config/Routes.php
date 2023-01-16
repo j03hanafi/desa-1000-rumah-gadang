@@ -83,12 +83,14 @@ $routes->group('dashboard', ['namespace' => 'App\Controllers\Web', 'filter' => '
     $routes->get('rumahGadang', 'Dashboard::rumahGadang',  ['filter' => 'role:admin']);
     $routes->get('event', 'Dashboard::event',  ['filter' => 'role:admin']);
     $routes->get('event', 'Dashboard::event',  ['filter' => 'role:admin']);
+    $routes->get('uniquePlace', 'Dashboard::uniquePlace',  ['filter' => 'role:admin']);
     $routes->get('facility', 'Dashboard::facility', ['filter' => 'role:admin']);
     $routes->get('recommendation', 'Dashboard::recommendation',  ['filter' => 'role:admin']);
     $routes->get('users', 'Dashboard::users', ['filter' => 'role:admin']);
     
     $routes->presenter('rumahGadang',  ['filter' => 'role:admin']);
     $routes->presenter('event',  ['filter' => 'role:admin']);
+    $routes->presenter('uniquePlace',  ['filter' => 'role:admin']);
     $routes->presenter('facility', ['filter' => 'role:admin']);
     $routes->presenter('users', ['filter' => 'role:admin']);
 });

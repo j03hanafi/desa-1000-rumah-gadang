@@ -62,7 +62,7 @@ class Facility extends ResourcePresenter
     {
         $request = $this->request->getPost();
         $requestData = [
-            'id' => $request['id'],
+            'id_facility_rumah_gadang' => $request['id'],
             'facility' => $request['facility'],
         ];
         $addFC = $this->facilityRumahGadangModel->add_fc_api($requestData);

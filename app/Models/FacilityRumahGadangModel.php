@@ -35,7 +35,7 @@ class FacilityRumahGadangModel extends Model
     
     public function get_fc_by_id_api($id = null) {
         $query = $this->db->table($this->table)
-            ->select('id_facility_rumah_gadang, facility')
+            ->select('id_facility_rumah_gadang as id, facility')
             ->where('id_facility_rumah_gadang', $id)
             ->get();
         return $query;

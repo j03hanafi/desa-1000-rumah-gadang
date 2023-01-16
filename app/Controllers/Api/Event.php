@@ -215,7 +215,7 @@ class Event extends ResourceController
      */
     public function delete($id = null)
     {
-        $deleteEV = $this->eventModel->delete(['id' => $id]);
+        $deleteEV = $this->eventModel->delete(['id_event' => $id]);
         if($deleteEV) {
             $response = [
                 'status' => 200,

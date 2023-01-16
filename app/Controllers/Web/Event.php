@@ -108,17 +108,15 @@ class Event extends ResourcePresenter
         $request = $this->request->getPost();
         $id = $this->eventModel->get_new_id_api();
         $requestData = [
-            'id' => $id,
+            'id_event' => $id,
             'name' => $request['name'],
-            'date_start' => $request['date_start'],
-            'date_end' => $request['date_end'],
-            'recurs' => $request['repeat'],
-            'max_recurs' => $request['occurrence'],
+            'event_start' => $request['date_start'],
+            'event_end' => $request['date_end'],
             'description' => $request['description'],
             'ticket_price' => empty($request['ticket_price']) ? "0" : $request['ticket_price'],
-            'contact_person' => $request['contact_person'],
-            'category_id' => $request['category'],
-            'owner' => $request['owner'],
+            'cp' => $request['contact_person'],
+            'id_event_category' => $request['category'],
+            'id_user' => $request['owner'],
             'lat' => $request['lat'],
             'lng' => $request['lng'],
         ];
@@ -206,13 +204,13 @@ class Event extends ResourcePresenter
         $request = $this->request->getPost();
         $requestData = [
             'name' => $request['name'],
-            'date_start' => $request['date_start'],
-            'date_end' => $request['date_end'],
+            'event_start' => $request['date_start'],
+            'event_end' => $request['date_end'],
             'description' => $request['description'],
             'ticket_price' => empty($request['ticket_price']) ? "0" : $request['ticket_price'],
-            'contact_person' => $request['contact_person'],
-            'category_id' => $request['category'],
-            'owner' => $request['owner'],
+            'cp' => $request['contact_person'],
+            'id_event_category' => $request['category'],
+            'id_user' => $request['owner'],
             'lat' => $request['lat'],
             'lng' => $request['lng'],
         ];
@@ -234,7 +232,7 @@ class Event extends ResourcePresenter
         } else {
             $requestData['video_url'] = null;
         }
-        $updateEV = $this->eventModel->update_ev_api($id, $requestData);
+        $updateEV = $this->eventModel->update_ev_api($id, $requestData, $geojson);
     
         if (isset($request['gallery'])) {
             $folders = $request['gallery'];

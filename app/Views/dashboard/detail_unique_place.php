@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h4 class="card-title text-center">Event Information</h4>
+                            <h4 class="card-title text-center">Unique Place Information</h4>
                             <div class="text-center">
                                 <?php for ($i = 0; $i < (int)esc($data['avg_rating']); $i++) { ?>
                                     <span class="material-symbols-outlined rating-color">star</span>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <a href="<?= base_url('dashboard/event/edit'); ?>/<?= esc($data['id']); ?>" class="btn btn-primary float-end"><i class="fa-solid fa-pencil me-3"></i>Edit</a>
+                            <a href="<?= base_url('dashboard/uniquePlace/edit'); ?>/<?= esc($data['id']); ?>" class="btn btn-primary float-end"><i class="fa-solid fa-pencil me-3"></i>Edit</a>
                         </div>
                     </div>
                 </div>
@@ -37,16 +37,8 @@
                                     <td><?= esc($data['name']); ?></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold">Category</td>
-                                    <td><?= esc($data['category']); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Event Date</td>
-                                    <td><?= date('d F Y', strtotime(esc($data['date_start']))); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Ticket Price</td>
-                                    <td><?= 'Rp ' . number_format(esc($data['ticket_price']), 0, ',','.'); ?></td>
+                                    <td class="fw-bold">Address</td>
+                                    <td><?= esc($data['address']); ?></td>
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Contact Person</td>

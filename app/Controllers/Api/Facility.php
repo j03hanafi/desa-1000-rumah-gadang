@@ -136,7 +136,7 @@ class Facility extends ResourceController
      */
     public function delete($id = null)
     {
-        $deleteFC = $this->facilityModel->delete(['id' => $id]);
+        $deleteFC = $this->facilityModel->delete(['id_facility_rumah_gadang' => $id]);
         if($deleteFC) {
             $response = [
                 'status' => 200,
