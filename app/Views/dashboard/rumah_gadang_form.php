@@ -95,7 +95,7 @@ $edit = in_array('edit', $uri);
                                 <input type="hidden" name="owner" value="<?= user()->id; ?>" required>
                             <?php else: ?>
                             <fieldset class="form-group mb-4">
-                                <script>getListUsers('<?= ($edit) ? esc($data['owner']) : ''; ?>');</script>
+                                <script>getListUsers('<?= ($edit) ? esc($data['id_user']) : ''; ?>');</script>
                                 <label for="ownerSelect" class="mb-2">Owner</label>
                                 <select class="form-select" id="ownerSelect" name="owner" required>
                                 </select>

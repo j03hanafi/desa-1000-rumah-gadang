@@ -172,8 +172,8 @@ class RumahGadangModel extends Model
     }
 
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 1);
+        $lastId = $this->db->table($this->table)->select('id_rumah_gadang')->orderBy('id_rumah_gadang', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_rumah_gadang'], 1);
         $id = sprintf('R%02d', $count + 1);
         return $id;
     }
@@ -185,7 +185,7 @@ class RumahGadangModel extends Model
             ->insert($rumah_gadang);
         $update = $this->db->table($this->table)
             ->set('geom', "ST_GeomFromGeoJSON('{$geojson}')", false)
-            ->where('id', $rumah_gadang['id'])
+            ->where('id_rumah_gadang', $rumah_gadang['id_rumah_gadang'])
             ->update();
         return $insert && $update;
     }
@@ -193,11 +193,11 @@ class RumahGadangModel extends Model
     public function update_rg_api($id = null, $rumah_gadang = null, $geojson = null) {
         $rumah_gadang['updated_at'] = Time::now();
         $query = $this->db->table($this->table)
-            ->where('id', $id)
+            ->where('id_rumah_gadang', $id)
             ->update($rumah_gadang);
         $update = $this->db->table($this->table)
             ->set('geom', "ST_GeomFromGeoJSON('{$geojson}')", false)
-            ->where('id', $id)
+            ->where('id_rumah_gadang', $id)
             ->update();
         return $query && $update;
     }

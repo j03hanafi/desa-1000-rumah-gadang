@@ -44,11 +44,11 @@
 - [x]	Owner dapat melakukan login 
 - [x]	Owner dapat mengganti password akunnya
 - [x]	Owner dapat mengelola data profilnya
-- [ ]	Owner bisa melihat daftar seluruh Rumah Gadang berdasarkan owner 
-- [ ]	Owner dapat menambahkan data Rumah Gadang
-- [ ]	Owner bisa melihat detail informasi dari Rumah Gadang yang dipilih dengan lokasi Rumah Gadang pada peta beserta rating dan review Rumah Gadang
-- [ ]	Owner dapat mengubah data Rumah Gadang yang dipilih
-- [ ]	Owner dapat menghapus data Rumah Gadang yang dipilih
+- [x]	Owner bisa melihat daftar seluruh Rumah Gadang 
+- [x]	Owner dapat menambahkan data Rumah Gadang
+- [x]	Owner bisa melihat detail informasi dari Rumah Gadang yang dipilih dengan lokasi Rumah Gadang pada peta beserta rating dan review Rumah Gadang
+- [x]	Owner dapat mengubah data Rumah Gadang yang dipilih
+- [x]	Owner dapat menghapus data Rumah Gadang yang dipilih
 - [ ]	Owner bisa melihat daftar seluruh event berdasarkan owner
 - [ ]	Owner dapat menambahkan data event
 - [ ]	Owner bisa melihat detail informasi dari event yang dipilih dengan lokasi event pada peta beserta rating dan review event
@@ -58,15 +58,15 @@
 - [ ]	Owner bisa melihat detail informasi dari unique place yang dipilih dengan lokasi unique place pada peta beserta rating dan review unique place
 - [ ]	Owner dapat mengubah data unique place yang dipilih
 - [ ]	Owner dapat menghapus data unique place yang dipilih
-- [ ]	Admin bisa melihat dan mengubah daftar rekomendasi Rumah Gadang
-- [ ]	Admin dapat melihat daftar fasilitas yang tersedia di Rumah Gadang
-- [ ]	Admin dapat menambahkan fasilitas yang tersedia di Rumah Gadang
-- [ ]	Admin dapat mengubah fasilitas yang tersedia di Rumah Gadang
-- [ ]	Admin dapat menghapus fasilitas yang tersedia di Rumah Gadang
-- [ ]	Admin bisa melihat daftar seluruh pengguna terdaftar
-- [ ]	Admin bisa melihat detail informasi dari pengguna terdaftar yang dipilih
-- [ ]	Admin dapat mengubah data pengguna terdaftar yang dipilih
-- [ ]	Admin dapat menghapus pengguna terdaftar yang dipilih
+- [ ]	Owner bisa melihat dan mengubah daftar rekomendasi Rumah Gadang
+- [ ]	Owner dapat melihat daftar fasilitas yang tersedia di Rumah Gadang
+- [ ]	Owner dapat menambahkan fasilitas yang tersedia di Rumah Gadang
+- [ ]	Owner dapat mengubah fasilitas yang tersedia di Rumah Gadang
+- [ ]	Owner dapat menghapus fasilitas yang tersedia di Rumah Gadang
+- [ ]	Owner bisa melihat daftar seluruh pengguna terdaftar
+- [ ]	Owner bisa melihat detail informasi dari pengguna terdaftar yang dipilih
+- [ ]	Owner dapat mengubah data pengguna terdaftar yang dipilih
+- [ ]	Owner dapat menghapus pengguna terdaftar yang dipilih
 - [ ]	Visitor dapat menampilkan current position pada peta secara manual maupun otomatis
 - [ ]	Visitor dapat melihat semua Rumah Gadang dengan lokasi masing-masing Rumah Gadang pada peta
 - [ ]	Visitor dapat melihat lokasi dan informasi ringkas dari Rumah Gadang yang dipilih pada peta
