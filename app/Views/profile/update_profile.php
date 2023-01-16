@@ -119,7 +119,7 @@
         styleButtonRemoveItemPosition: 'center bottom',
         credits: false,
     });
-    pond.addFile(`<?= base_url('media/photos/' . user()->avatar); ?>`)
+    pond.addFile(`<?= base_url('media/photos/' . user()->photo); ?>`)
         .then((file) => {
             console.log(file.filename, "has been added")
         })

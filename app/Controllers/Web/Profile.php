@@ -135,11 +135,11 @@ class Profile extends BaseController
             $filenames = get_filenames($filepath);
             $avatar = new File($filepath . '/' . $filenames[0]);
             $avatar->move(FCPATH . 'media/photos');
-            $requestData['avatar'] = $avatar->getFilename();
+            $requestData['photo'] = $avatar->getFilename();
             delete_files($filepath);
             rmdir($filepath);
         } else {
-            $requestData['avatar'] = 'default.jpg';
+            $requestData['photo'] = 'default.jpg';
         }
         
         $query = $this->accountModel->update_account_users(user()->id, $requestData);

@@ -33,19 +33,17 @@
 - [x]	Visitor bisa melakukan pencarian unique place berdasarkan rating unique place
 - [x]	Visitor bisa melakukan pencarian objek pendukung di sekitar objek utama yang dipilih
 - [x]	Visitor dapat melihat rute yang dapat ditempuh dari posisi objek utama yang dipilih menuju objek pendukung yang dipilih
-- [ ]	Visitor dapat melihat detail informasi dari objek pendukung yang dipilih
+- [x]	Visitor dapat melihat detail informasi dari objek pendukung yang dipilih
 - [x]	Visitor dapat melihat lokasi dari objek pendukung yang dipilih pada peta 
-- [ ]	Visitor dapat melakukan registrasi
-- [ ]	User dapat melakukan login
-- [ ]	User dapat mengganti password akunnya
-- [ ]	User dapat mengelola data profilnya
-- [ ]	User dapat memberikan rating untuk Rumah Gadang dan event
-- [ ]	User dapat menambahkan review untuk Rumah Gadang dan event 
-- [ ]	User bisa melihat riwayat kunjungannya berupa tanggal berkunjung ke objek utama desa wisata
-- [ ]	User dapat menambahkan riwayat kunjungannya berupa tanggal berkunjung ke objek utama desa wisata
-- [ ]	Owner dapat melakukan login 
-- [ ]	Owner dapat mengganti password akunnya
-- [ ]	Owner dapat mengelola data profilnya
+- [x]	Visitor dapat melakukan registrasi
+- [x]	User dapat melakukan login
+- [x]	User dapat mengganti password akunnya
+- [x]	User dapat mengelola data profilnya
+- [x]	User dapat memberikan rating untuk Rumah Gadang dan event
+- [x]	User dapat menambahkan review untuk Rumah Gadang dan event
+- [x]	Owner dapat melakukan login 
+- [x]	Owner dapat mengganti password akunnya
+- [x]	Owner dapat mengelola data profilnya
 - [ ]	Owner bisa melihat daftar seluruh Rumah Gadang berdasarkan owner 
 - [ ]	Owner dapat menambahkan data Rumah Gadang
 - [ ]	Owner bisa melihat detail informasi dari Rumah Gadang yang dipilih dengan lokasi Rumah Gadang pada peta beserta rating dan review Rumah Gadang
@@ -56,9 +54,10 @@
 - [ ]	Owner bisa melihat detail informasi dari event yang dipilih dengan lokasi event pada peta beserta rating dan review event
 - [ ]	Owner dapat mengubah data event yang dipilih
 - [ ]	Owner dapat menghapus data event yang dipilih
-- [ ]	Admin dapat melakukan login 
-- [ ]	Admin dapat mengganti password akunnya
-- [ ]	Admin dapat mengelola data profilnya
+- [ ]	Owner dapat menambahkan data unique place
+- [ ]	Owner bisa melihat detail informasi dari unique place yang dipilih dengan lokasi unique place pada peta beserta rating dan review unique place
+- [ ]	Owner dapat mengubah data unique place yang dipilih
+- [ ]	Owner dapat menghapus data unique place yang dipilih
 - [ ]	Admin bisa melihat dan mengubah daftar rekomendasi Rumah Gadang
 - [ ]	Admin dapat melihat daftar fasilitas yang tersedia di Rumah Gadang
 - [ ]	Admin dapat menambahkan fasilitas yang tersedia di Rumah Gadang

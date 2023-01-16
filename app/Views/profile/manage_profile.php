@@ -55,7 +55,7 @@
                 <div class="col-md-6 col-12 order-md-last order-first mb-5">
                     <p class="mb-2">Profile Picture</p>
                     <div class="text-md-start text-center" id="avatar-container">
-                        <img src="<?= base_url('media/photos'); ?>/<?= user()->avatar; ?>" alt="avatar" class="img-fluid img-thumbnail rounded-circle">
+                        <img src="<?= base_url('media/photos'); ?>/<?= user()->photo; ?>" alt="avatar" class="img-fluid img-thumbnail rounded-circle">
                     </div>
                 </div>
             </div>

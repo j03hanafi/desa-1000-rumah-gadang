@@ -18,25 +18,36 @@ class Review extends BaseController
     {
         $request = $this->request->getPost();
         $requestData = [
-            'id' => $this->reviewModel->get_new_id_api(),
+            'id_comment' => $this->reviewModel->get_new_id_api(),
             'comment' => $request['comment'],
             'date' => Time::now(),
             'rating' => $request['rating'],
-            'user_id' => user()->id,
+            'id_user' => user()->id,
         ];
         if (substr($request['object_id'], 0, 1) == 'R') {
-            $requestData['rumah_gadang_id'] = $request['object_id'];
+            $requestData['id_rumah_gadang'] = $request['object_id'];
             $addReview = $this->reviewModel->add_review_api($requestData);
             if ($addReview) {
-                return redirect()->to(base_url('web/rumahGadang') . '/' . $requestData['rumah_gadang_id'] . '#reviews');
+                return redirect()->to(base_url('web/rumahGadang') . '/' . $requestData['id_rumah_gadang'] . '#reviews');
             }
         }
-        
-        $requestData['event_id'] = $request['object_id'];
-        $addReview = $this->reviewModel->add_review_api($requestData);
-        if ($addReview) {
-            return redirect()->to(base_url('web/event') . '/' . $requestData['event_id'] . '#reviews');
+
+        if (substr($request['object_id'], 0, 1) == 'E') {
+            $requestData['id_event'] = $request['object_id'];
+            $addReview = $this->reviewModel->add_review_api($requestData);
+            if ($addReview) {
+                return redirect()->to(base_url('web/event') . '/' . $requestData['id_event'] . '#reviews');
+            }
         }
+
+        if (substr($request['object_id'], 0, 1) == 'E') {
+            $requestData['id_unique_place'] = $request['object_id'];
+            $addReview = $this->reviewModel->add_review_api($requestData);
+            if ($addReview) {
+                return redirect()->to(base_url('web/uniquePlace') . '/' . $requestData['id_unique_place'] . '#reviews');
+            }
+        }
+
         return redirect()->to(base_url('web'));
     }
 }

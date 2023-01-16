@@ -27,8 +27,8 @@ class ReviewModel extends Model
 
     // API
     public function get_new_id_api() {
-        $lastId = $this->db->table($this->table)->select('id')->orderBy('id', 'ASC')->get()->getLastRow('array');
-        $count = (int)substr($lastId['id'], 1);
+        $lastId = $this->db->table($this->table)->select('id_comment')->orderBy('id_comment', 'ASC')->get()->getLastRow('array');
+        $count = (int)substr($lastId['id_comment'], 1);
         $id = sprintf('W%03d', $count + 1);
         return $id;
     }
